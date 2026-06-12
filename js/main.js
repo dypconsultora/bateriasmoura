@@ -52,43 +52,10 @@
   }
 
   /* ---------------------------------------------------------------
-     3) PARALLAX LIVIANO
-     Mueve cada [data-parallax] según su posición en el viewport.
-     data-parallax="0.25" => se mueve al 25% de la velocidad de scroll.
-     Usa translate3d (acelerado por GPU) y se actualiza con rAF.
+     3) PARALLAX
+     Ahora lo maneja ScrollSmoother (atributos data-speed) en
+     js/animations.js. Acá ya no se hace parallax para no duplicar.
      --------------------------------------------------------------- */
-  const parallaxEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
-  let ticking = false;
-
-  function applyParallax() {
-    const vh = window.innerHeight;
-    for (let i = 0; i < parallaxEls.length; i++) {
-      const el = parallaxEls[i];
-      const speed = parseFloat(el.getAttribute("data-parallax")) || 0;
-      const rect = el.getBoundingClientRect();
-      // Distancia del centro del elemento al centro de la pantalla
-      const offset = (rect.top + rect.height / 2) - vh / 2;
-      const shift = Math.round(offset * -speed * 100) / 100;
-      el.style.transform = "translate3d(0," + shift + "px,0)";
-    }
-    ticking = false;
-  }
-
-  function requestParallax() {
-    if (!ticking) {
-      window.requestAnimationFrame(applyParallax);
-      ticking = true;
-    }
-  }
-
-  // Parallax solo en desktop y si no se pidió menos movimiento.
-  function parallaxOn() {
-    return !prefersReducedMotion && parallaxEls.length && window.innerWidth >= 768;
-  }
-  // Limpia los transforms (al pasar a mobile, para que nada quede desplazado).
-  function clearParallax() {
-    for (var i = 0; i < parallaxEls.length; i++) parallaxEls[i].style.transform = "";
-  }
 
   /* ---------------------------------------------------------------
      4) SCROLL REVEAL
@@ -113,21 +80,15 @@
   function onScroll() {
     updateHeader();
     updateWaFloat();
-    if (parallaxOn()) requestParallax();
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", function () {
-    if (parallaxOn()) requestParallax();
-    else clearParallax();
-  }, { passive: true });
 
   /* ---------------------------------------------------------------
      INICIALIZACIÓN
      --------------------------------------------------------------- */
   updateHeader();
   updateWaFloat();
-  if (parallaxOn()) applyParallax();
 
   // Año dinámico del footer
   document.querySelectorAll("[data-year]").forEach(function (el) {

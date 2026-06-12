@@ -134,18 +134,22 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   position: relative; border-radius: 24px; overflow: visible;
   will-change: transform;
 }
-/* Foto del técnico tratada como fondo + zoom para recortar la
-   banda de texto quemado del original (queda fuera del marco). */
+/* .hero-photo = contenedor que recorta (clip-path reveal por GSAP).
+   .hero-photo-img = la imagen de fondo que hace el Ken Burns (zoom lento). */
 .hero-photo {
   width: 100%; aspect-ratio: 4 / 4.7;
-  background-image: url("../assets/img/tecnico.webp");
-  background-size: 162%;
-  background-position: 50% 14%;
-  background-repeat: no-repeat;
-  border-radius: 24px;
+  border-radius: 24px; overflow: hidden;
   border: 1px solid rgba(255,255,255,.12);
   box-shadow: 0 40px 80px -30px rgba(0,0,0,.8), 0 0 0 1px rgba(37,99,235,.15);
   transform: rotate(1.5deg);
+}
+.hero-photo-img {
+  width: 100%; height: 100%;
+  background-image: url("../assets/img/hero-mecanico.webp");
+  background-size: cover;
+  background-position: 64% 42%;
+  background-repeat: no-repeat;
+  will-change: transform;
 }
 .hero-badge {
   position: absolute; left: -26px; bottom: 24px; z-index: 2;
@@ -407,6 +411,11 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
    GSAP no carga o hay reduced-motion, animations.js quita 'gsap-on'. */
 html.gsap-on [data-hero],
 html.gsap-on .hero-badge { opacity: 0; }
+/* La imagen del hero arranca recortada (clip-path reveal) y los títulos de
+   sección con wipe horizontal. Si GSAP no corre, no aplica (sin gsap-on). */
+html.gsap-on .hero-photo { clip-path: inset(0 100% 0 0 round 24px); }
+html.gsap-on .section-title,
+html.gsap-on .section-title-light { clip-path: inset(0 100% 0 0); }
 /* Durante cada reveal, GSAP apaga la transición CSS para no pelear con ella. */
 .anim-prep { transition: none !important; }
 
@@ -429,4 +438,48 @@ html.gsap-on .hero-badge { opacity: 0; }
   .hero-badge { left: 12px; bottom: 12px; }
   #wa-float { width: 54px; height: 54px; right: 16px; bottom: 16px; }
   .about-rating-card { right: 8px; bottom: -16px; padding: 12px 16px; }
+}
+
+/* =================================================================
+   ANIMACIONES "2.0" (GSAP + ScrollSmoother + SplitText) — soporte
+   ================================================================= */
+
+/* Barra de progreso de scroll (fija arriba de todo) */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 70;
+  background: linear-gradient(90deg, var(--moura), var(--energy));
+  transform: scaleX(0); transform-origin: 0 50%;
+  will-change: transform; pointer-events: none;
+}
+
+/* MARQUEE (diferenciales) — cinta infinita con fundido en los bordes */
+.marquee {
+  position: relative; width: 100%; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.marquee-track { display: flex; align-items: center; width: max-content; will-change: transform; }
+.marquee-track .diff-item { flex: 0 0 auto; padding: 0 2.4rem; white-space: nowrap; position: relative; }
+.marquee-track .diff-item::after {
+  content: ""; position: absolute; right: -2.5px; top: 50%; transform: translateY(-50%);
+  width: 5px; height: 5px; border-radius: 999px; background: rgba(255,255,255,.2);
+}
+
+/* MAGNÉTICO — GSAP controla el transform; la transición queda solo para el glow */
+[data-magnetic] { transition: box-shadow .25s ease, background-color .2s ease, border-color .2s ease; will-change: transform; }
+
+/* TILT 3D de las opiniones (la perspectiva la pone GSAP con transformPerspective) */
+.review-card { will-change: transform; }
+
+/* Contadores con blur (lo anima GSAP vía filter) */
+.stat-count { display: inline-block; will-change: filter, transform; }
+
+/* Reduced-motion para los componentes nuevos: cinta estática y centrada,
+   barra de progreso completa, sin recortes. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee { -webkit-mask-image: none; mask-image: none; }
+  .marquee-track { flex-wrap: wrap; justify-content: center; width: 100%; gap: .5rem 0; }
+  .marquee-track .diff-item::after { display: none; }
+  .scroll-progress { transform: scaleX(1); opacity: .5; }
+  .hero-photo, .section-title, .section-title-light { clip-path: none !important; }
 }

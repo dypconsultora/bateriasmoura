@@ -1,14 +1,14 @@
 /* =================================================================
-   BATERÍAS MOURA SAN ANDRÉS — animations.js
-   Animaciones con GSAP + ScrollTrigger (cargados por CDN antes que
-   este archivo). Se agregan ENCIMA del diseño: no cambian contenido,
-   enlaces ni SEO.
+   BATERÍAS MOURA SAN ANDRÉS — animations.js  (GSAP 2.0)
+   GSAP + ScrollTrigger + ScrollSmoother + SplitText (CDN 3.13).
+   Enfoque moderno: scroll suave, reveals cinemáticos, count-up con
+   blur, botones magnéticos, marquee, tilt 3D, clip-path/SplitText.
 
-   Buenas prácticas aplicadas:
-   - Respeta prefers-reduced-motion (muestra todo en estado final).
-   - Anima SOLO transform y opacity (sin layout shift / CLS).
-   - ScrollTrigger con once:true en los reveals (no se repiten).
-   - Ajustá la intensidad desde el objeto CFG de abajo.
+   Reglas: respeta prefers-reduced-motion (todo en estado final),
+   anima sobre todo transform/opacity (clip-path/filter solo donde
+   se pidió, sin CLS), once:true en reveals, y baja intensidades /
+   desactiva smoother·parallax·tilt·magnético en mobile.
+   Ajustá TODO desde el objeto CFG de abajo.
    ================================================================= */
 (function () {
   "use strict";
@@ -16,137 +16,229 @@
   var docEl = document.documentElement;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* Si GSAP no cargó o el usuario pidió menos movimiento: quitamos
-     'gsap-on' (todo se ve en su estado final) y salimos. */
+  // Sin GSAP base o con reduced-motion → todo en estado final y salimos.
   if (reduce || !window.gsap || !window.ScrollTrigger) {
     docEl.classList.remove("gsap-on");
     return;
   }
 
-  /* ===================== CONFIG — ajustá la intensidad acá ===================== */
+  /* ===================== CONFIG — tuneá la intensidad acá ===================== */
   var CFG = {
-    duration:      0.9,           // duración base de los fades (s)
-    ease:          "power3.out",  // easing base
-    fadeY:         44,            // distancia del fade-up en desktop (px)
-    fadeYMobile:   24,            // distancia del fade-up en mobile (px)
-    stagger:       0.12,          // separación entre elementos en cascada (s)
-    start:         "top 85%",     // cuándo dispara el reveal al scrollear
-    countDuration: 1.8,           // duración del conteo de los números (s)
-    waPulse:       true,          // latido del botón de WhatsApp (true/false)
-    waPulseEvery:  2.6            // pausa entre latidos del WhatsApp (s)
+    duration:        0.9,            // duración base de los fades (s)
+    ease:            "power3.out",   // easing base
+    fadeY:           48,             // distancia fade-up desktop (px)
+    fadeYMobile:     26,             // distancia fade-up mobile (px)
+    stagger:         0.12,           // separación en cascada (s)
+    start:           "top 85%",      // disparo de los reveals
+    smooth:          1.15,           // inercia de ScrollSmoother (0 = off)
+    heroWordDur:     0.9,            // duración de cada palabra del título
+    heroWordStagger: 0.055,          // cascada palabra x palabra
+    heroPhotoClip:   1.1,            // duración del clip-path reveal de la foto
+    kenBurns:        14,             // zoom lento infinito de la foto (s)
+    countDuration:   1.9,            // duración del count-up (s)
+    magnetStrength:  0.32,           // cuánto sigue el botón al cursor
+    tiltMax:         9,              // grados de tilt 3D en opiniones
+    marqueeSeconds:  26,             // s por vuelta del marquee
+    wipeDuration:    0.9,            // wipe de los títulos de sección
+    waPulse:         true,           // latido del WhatsApp (true/false)
+    waPulseEvery:    2.6             // pausa entre latidos (s)
   };
 
   gsap.registerPlugin(ScrollTrigger);
+  if (window.ScrollSmoother) gsap.registerPlugin(ScrollSmoother);
+  if (window.SplitText) gsap.registerPlugin(SplitText);
   gsap.defaults({ duration: CFG.duration, ease: CFG.ease });
 
-  // Distancia del fade según el ancho (se calcula una vez al cargar).
-  var DIST = window.innerWidth < 768 ? CFG.fadeYMobile : CFG.fadeY;
+  var isMobile = window.matchMedia("(max-width: 767px)").matches;
+  var isTouch  = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+  var DIST     = isMobile ? CFG.fadeYMobile : CFG.fadeY;
 
-  /* Reveal reutilizable. Usa una clase .anim-prep para apagar la
-     transición CSS durante el movimiento (así no pelea con el hover),
-     y limpia el transform al terminar para no romper estados :hover. */
+  /* ---------------------------------------------------------------
+     1) SCROLL SUAVE (ScrollSmoother) — desktop. Mobile: scroll nativo.
+     --------------------------------------------------------------- */
+  var smoother = null;
+  if (window.ScrollSmoother && !isMobile) {
+    smoother = ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: CFG.smooth,
+      effects: true,        // habilita el parallax por data-speed
+      smoothTouch: 0
+    });
+    docEl.style.scrollBehavior = "auto"; // el smoother maneja el scroll
+    // Links internos: scroll suave vía smoother (no rompe WhatsApp/tel/mapa)
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var id = a.getAttribute("href");
+        if (id.length < 2) return;
+        var target = document.querySelector(id);
+        if (target) { e.preventDefault(); smoother.scrollTo(target, true, "top 80px"); }
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------
+     2) BARRA DE PROGRESO DE SCROLL
+     --------------------------------------------------------------- */
+  gsap.set("#scroll-progress", { scaleX: 0 });
+  ScrollTrigger.create({
+    start: 0, end: "max",
+    onUpdate: function (self) { gsap.set("#scroll-progress", { scaleX: self.progress }); }
+  });
+
+  /* ---------------------------------------------------------------
+     Helpers de reveal
+     --------------------------------------------------------------- */
+  // Fade-up genérico (apaga la transición CSS durante el movimiento).
   function reveal(targets, opts) {
     opts = opts || {};
     gsap.utils.toArray(targets).forEach(function (el, i) {
       el.classList.add("anim-prep");
       gsap.from(el, {
-        opacity: 0,
+        autoAlpha: 0,
         y: opts.y != null ? opts.y : DIST,
         duration: opts.duration || CFG.duration,
         ease: opts.ease || CFG.ease,
         delay: (opts.stagger != null ? opts.stagger : 0) * i,
-        clearProps: "transform",
+        clearProps: "transform,opacity,visibility",
         scrollTrigger: { trigger: opts.trigger || el, start: opts.start || CFG.start, once: true },
         onComplete: function () { el.classList.remove("anim-prep"); }
       });
     });
   }
 
-  /* Antes de contar, dejamos los números en 0 (pasa off-screen, sin flash). */
-  gsap.utils.toArray(".stat-count").forEach(function (el) {
-    var dec = parseInt(el.getAttribute("data-dec") || "0", 10);
-    el.textContent = (0).toFixed(dec);
-  });
-
   /* ---------------------------------------------------------------
-     HERO — timeline de entrada al cargar la página
+     3) HERO — entrada cinemática (SplitText + clip-path + Ken Burns)
      --------------------------------------------------------------- */
+  var title = document.querySelector('[data-hero="title"]');
   var heroTl = gsap.timeline({ defaults: { ease: CFG.ease } });
+
+  // Título palabra por palabra subiendo detrás de una máscara.
+  if (window.SplitText && title) {
+    var split = SplitText.create(title, { type: "words", mask: "words" });
+    gsap.set(title, { autoAlpha: 1 });
+    heroTl.from(split.words, {
+      yPercent: 120, duration: CFG.heroWordDur, ease: "power4.out",
+      stagger: CFG.heroWordStagger
+    }, 0.1);
+  } else if (title) {
+    heroTl.fromTo(title, { autoAlpha: 0, y: DIST }, { autoAlpha: 1, y: 0 }, 0.1);
+  }
+
+  // Estos elementos arrancan ocultos por CSS (gsap-on) → fromTo con destino
+  // explícito autoAlpha:1 (un .from() animaría de 0 a 0 y quedarían ocultos).
   heroTl
-    .fromTo('[data-hero="badge"]',
-      { opacity: 0, scale: 0.8, y: 8 },
-      { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(1.7)" })
-    .fromTo('[data-hero="title"]',
-      { opacity: 0, y: DIST },
-      { opacity: 1, y: 0, duration: 0.9 }, "-=0.15")
-    .fromTo('[data-hero="subtitle"]',
-      { opacity: 0, y: DIST * 0.7 },
-      { opacity: 1, y: 0, duration: 0.8 }, "-=0.55")
-    .fromTo('[data-hero="photo"]',
-      { opacity: 0, scale: 0.96 },
-      { opacity: 1, scale: 1, duration: 0.9, clearProps: "transform" }, "-=0.7")
-    .fromTo(['[data-hero="cta"]', '[data-hero="rating"]'],
-      { opacity: 0, y: DIST * 0.6 },
-      { opacity: 1, y: 0, duration: 0.7, stagger: 0.12 }, "-=0.5")
-    .fromTo(".hero-badge",
-      { opacity: 0, x: -28, scale: 0.9 },
-      { opacity: 1, x: 0, scale: 1, duration: 0.7, ease: "back.out(1.6)",
+    .fromTo('[data-hero="badge"]', { autoAlpha: 0, scale: 0.8, y: 8 },
+      { autoAlpha: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, 0)
+    .to('.hero-photo', { clipPath: "inset(0 0% 0 0 round 24px)", duration: CFG.heroPhotoClip, ease: "power3.inOut" }, 0.3)
+    .fromTo('[data-hero="photo"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.3)
+    .fromTo('[data-hero="subtitle"]', { autoAlpha: 0, y: DIST * 0.7 },
+      { autoAlpha: 1, y: 0, duration: 0.7 }, "-=0.8")
+    .fromTo(['[data-hero="cta"]', '[data-hero="rating"]'], { autoAlpha: 0, y: DIST * 0.6 },
+      { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.12 }, "-=0.55")
+    .fromTo('.hero-badge', { autoAlpha: 0, x: -28, scale: 0.9 },
+      { autoAlpha: 1, x: 0, scale: 1, duration: 0.7, ease: "back.out(1.6)",
         onComplete: function () {
           gsap.set(".hero-badge", { clearProps: "transform" });
           var b = document.querySelector(".hero-badge");
-          if (b) b.classList.add("is-live"); // arranca el floaty + glow
+          if (b) b.classList.add("is-live"); // arranca floaty + glow
         }
-      }, "-=0.35");
+      }, "-=0.4");
+
+  // Ken Burns continuo (zoom lento infinito) sobre la imagen.
+  if (!isMobile) {
+    gsap.to(".hero-photo-img", { scale: 1.12, duration: CFG.kenBurns, ease: "sine.inOut", repeat: -1, yoyo: true });
+  }
 
   /* ---------------------------------------------------------------
-     DIFERENCIALES — stagger
+     4) TÍTULOS DE SECCIÓN — reveal tipo "wipe" (máscara)
      --------------------------------------------------------------- */
-  reveal("#diferenciales .diff-item", { trigger: "#diferenciales", start: "top 80%", stagger: 0.08, y: DIST * 0.6 });
+  gsap.utils.toArray(".section-title, .section-title-light").forEach(function (t) {
+    gsap.to(t, {
+      clipPath: "inset(0 0% 0 0)",
+      duration: CFG.wipeDuration, ease: "power3.inOut",
+      scrollTrigger: { trigger: t, start: "top 85%", once: true }
+    });
+  });
 
   /* ---------------------------------------------------------------
-     NOSOTROS — reveal de columnas + count-up (lo que más se luce)
+     5) BOTONES MAGNÉTICOS (desktop / no-touch)
+     --------------------------------------------------------------- */
+  if (!isTouch) {
+    document.querySelectorAll("[data-magnetic]").forEach(function (btn) {
+      var xTo = gsap.quickTo(btn, "x", { duration: 0.4, ease: "power3.out" });
+      var yTo = gsap.quickTo(btn, "y", { duration: 0.4, ease: "power3.out" });
+      btn.addEventListener("mousemove", function (e) {
+        var r = btn.getBoundingClientRect();
+        xTo((e.clientX - (r.left + r.width / 2)) * CFG.magnetStrength);
+        yTo((e.clientY - (r.top + r.height / 2)) * CFG.magnetStrength);
+      });
+      btn.addEventListener("mouseleave", function () { xTo(0); yTo(0); });
+    });
+  }
+
+  /* ---------------------------------------------------------------
+     6) DIFERENCIALES — marquee infinito
+     --------------------------------------------------------------- */
+  (function initMarquee() {
+    var track = document.getElementById("diff-marquee");
+    if (!track) return;
+    // Clonamos el set para un loop sin cortes.
+    Array.prototype.slice.call(track.children).forEach(function (it) {
+      var c = it.cloneNode(true); c.setAttribute("aria-hidden", "true"); track.appendChild(c);
+    });
+    var loop = gsap.to(track, { xPercent: -50, duration: CFG.marqueeSeconds, ease: "none", repeat: -1 });
+    var box = track.parentNode;
+    box.addEventListener("mouseenter", function () { gsap.to(loop, { timeScale: 0.25, duration: 0.4 }); });
+    box.addEventListener("mouseleave", function () { gsap.to(loop, { timeScale: 1, duration: 0.4 }); });
+  })();
+
+  /* ---------------------------------------------------------------
+     7) NOSOTROS — reveal de columnas + count-up con blur
      --------------------------------------------------------------- */
   reveal("#nosotros > div > div", { trigger: "#nosotros", stagger: 0.15 });
 
+  // Dejamos los números en 0 (off-screen, sin flash).
+  gsap.utils.toArray(".stat-count").forEach(function (el) {
+    el.textContent = (0).toFixed(parseInt(el.getAttribute("data-dec") || "0", 10));
+  });
+
   ScrollTrigger.create({
-    trigger: "#nosotros",
-    start: "top 70%",
-    once: true,
+    trigger: "#nosotros", start: "top 70%", once: true,
     onEnter: function () {
       gsap.utils.toArray("#nosotros .stat-count").forEach(function (el) {
         var to = parseFloat(el.getAttribute("data-to")) || 0;
         var dec = parseInt(el.getAttribute("data-dec") || "0", 10);
         var obj = { v: 0 };
         gsap.to(obj, {
-          v: to,
-          duration: CFG.countDuration,
-          ease: "power2.out",
+          v: to, duration: CFG.countDuration, ease: "power2.out",
           onUpdate: function () { el.textContent = obj.v.toFixed(dec); }
         });
+        // Blur que se va aclarando mientras sube el número.
+        gsap.fromTo(el, { filter: "blur(9px)", opacity: 0.35 },
+          { filter: "blur(0px)", opacity: 1, duration: CFG.countDuration * 0.85, ease: "power2.out" });
       });
     }
   });
 
   /* ---------------------------------------------------------------
-     SERVICIOS — header + cards en stagger + realce de los números
+     8) SERVICIOS — cards con rotación/skew + números grandes
      --------------------------------------------------------------- */
   reveal("#servicios .max-w-2xl", { trigger: "#servicios" });
 
   gsap.utils.toArray("#servicios .service-card").forEach(function (card, i) {
     card.classList.add("anim-prep");
     gsap.from(card, {
-      opacity: 0, y: DIST, delay: i * CFG.stagger,
-      clearProps: "transform",
+      autoAlpha: 0, y: DIST, rotateZ: i % 2 ? 2.5 : -2.5, skewY: 2, transformPerspective: 800,
+      duration: CFG.duration, delay: i * CFG.stagger, clearProps: "transform,opacity,visibility",
       scrollTrigger: { trigger: "#servicios", start: CFG.start, once: true },
       onComplete: function () { card.classList.remove("anim-prep"); }
     });
-    // Realce extra del número grande 01/02/03 (scale pop).
     var step = card.querySelector(".service-step");
     if (step) {
       gsap.from(step, {
-        opacity: 0, scale: 0.4, y: 8,
-        duration: 0.8, delay: i * CFG.stagger + 0.15, ease: "back.out(1.8)",
-        clearProps: "transform",
+        autoAlpha: 0, scale: 0.3, duration: 0.9, delay: i * CFG.stagger + 0.15, ease: "back.out(2)",
+        clearProps: "transform", transformOrigin: "top right",
         scrollTrigger: { trigger: "#servicios", start: CFG.start, once: true },
         onStart: function () { step.style.transition = "none"; },
         onComplete: function () { step.style.transition = ""; }
@@ -155,21 +247,19 @@
   });
 
   /* ---------------------------------------------------------------
-     BANDA "A DOMICILIO"
+     9) BANDA "A DOMICILIO"
      --------------------------------------------------------------- */
   reveal(".domicilio-band [data-reveal]", { trigger: ".domicilio-band", start: "top 75%" });
 
   /* ---------------------------------------------------------------
-     OPINIONES — header, badge con realce y tarjetas en stagger
+     10) OPINIONES — reveal 3D + badge + tilt al hover
      --------------------------------------------------------------- */
   reveal("#opiniones .max-w-2xl", { trigger: "#opiniones" });
 
   var revBadge = document.querySelector("#opiniones .reviews-badge");
   if (revBadge) {
     gsap.from(revBadge, {
-      opacity: 0, scale: 0.85,
-      duration: 0.7, ease: "back.out(1.7)",
-      clearProps: "transform",
+      autoAlpha: 0, scale: 0.85, duration: 0.7, ease: "back.out(1.7)", clearProps: "transform,opacity,visibility",
       scrollTrigger: { trigger: "#opiniones", start: CFG.start, once: true }
     });
   }
@@ -177,38 +267,49 @@
   gsap.utils.toArray("#opiniones .review-card").forEach(function (card, i) {
     card.classList.add("anim-prep");
     gsap.from(card, {
-      opacity: 0, y: DIST, delay: i * 0.1,
-      clearProps: "transform",
+      autoAlpha: 0, y: DIST, rotateX: -14, z: -70, transformPerspective: 900, transformOrigin: "center bottom",
+      duration: CFG.duration, delay: (i % 4) * 0.1, clearProps: "transform,opacity,visibility",
       scrollTrigger: { trigger: ".reviews-carousel", start: CFG.start, once: true },
       onComplete: function () { card.classList.remove("anim-prep"); }
     });
   });
 
+  // Tilt 3D siguiendo el mouse (desktop / no-touch).
+  if (!isTouch) {
+    gsap.utils.toArray("#opiniones .review-card").forEach(function (card) {
+      var rX = gsap.quickTo(card, "rotationX", { duration: 0.4, ease: "power2.out" });
+      var rY = gsap.quickTo(card, "rotationY", { duration: 0.4, ease: "power2.out" });
+      gsap.set(card, { transformPerspective: 900 });
+      card.addEventListener("mousemove", function (e) {
+        var r = card.getBoundingClientRect();
+        rY(((e.clientX - r.left) / r.width - 0.5) * CFG.tiltMax * 2);
+        rX(-((e.clientY - r.top) / r.height - 0.5) * CFG.tiltMax * 2);
+      });
+      card.addEventListener("mouseleave", function () { rX(0); rY(0); });
+    });
+  }
+
   reveal("#opiniones .text-center", { trigger: "#opiniones .text-center", start: "top 90%" });
 
   /* ---------------------------------------------------------------
-     CONTACTO — bloque + tarjetas + mapa
+     11) CONTACTO
      --------------------------------------------------------------- */
   reveal("#contacto .max-w-2xl", { trigger: "#contacto" });
   reveal("#contacto .contact-card", { trigger: "#contacto", stagger: 0.1, y: DIST * 0.6 });
   reveal("#contacto .map-frame", { trigger: "#contacto" });
 
   /* ---------------------------------------------------------------
-     BOTÓN FLOTANTE DE WHATSAPP — latido sutil y espaciado
-     (se apaga con CFG.waPulse = false o con reduced-motion)
+     12) WHATSAPP FLOTANTE — latido sutil y espaciado
+     (la entrada con bounce ya la hace el CSS al aparecer)
      --------------------------------------------------------------- */
   if (CFG.waPulse) {
     var pulse = document.querySelector(".wa-float-pulse");
     if (pulse) {
       gsap.set(pulse, { scale: 1, opacity: 0.5 });
-      gsap.to(pulse, {
-        scale: 1.9, opacity: 0,
-        duration: 1.4, ease: "power1.out",
-        repeat: -1, repeatDelay: CFG.waPulseEvery
-      });
+      gsap.to(pulse, { scale: 1.9, opacity: 0, duration: 1.4, ease: "power1.out", repeat: -1, repeatDelay: CFG.waPulseEvery });
     }
   }
 
-  /* Recalcular posiciones cuando terminen de cargar imágenes/fuentes. */
+  /* Recalcular tras cargar imágenes/fuentes. */
   window.addEventListener("load", function () { ScrollTrigger.refresh(); });
 })();

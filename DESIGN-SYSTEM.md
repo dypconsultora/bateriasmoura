@@ -35,7 +35,7 @@ Todas optimizadas a **WebP** con `lazy-loading`. Originales guardados en `assets
 | Archivo en uso | Origen | Estado |
 |----------------|--------|--------|
 | `logo.webp` / `logo.png` | Logo oficial | ✅ Bien |
-| `tecnico.webp` | Foto del técnico (hero) | 🟡 Recortada para ocultar el texto quemado "VAMOS DONDE ESTES" — **conviene reemplazar por una foto limpia del técnico/equipo** |
+| `hero-mecanico.webp` | Mecánico midiendo la batería (hero) | ✅ **Reemplazada** por una foto limpia y profesional (sin texto quemado). Encuadre vía `background-position` en `.hero-photo-img` |
 | `local.webp` | Collage del local (sección Nosotros) | 🔴 Es un collage de baja resolución — **reemplazar por 2-3 fotos sueltas y nítidas del local y de un cambio real** |
 | `domicilio.webp` | Auto en ruta + WhatsApp (banda parallax) | 🟡 Stock con número quemado — **reemplazar por foto propia de un cambio a domicilio** |
 | `google-reviews.webp` | Logo Google Reviews 5★ | ✅ Bien |
@@ -62,16 +62,22 @@ Todas optimizadas a **WebP** con `lazy-loading`. Originales guardados en `assets
 - [x] **Contacto siempre visible** (no oculto) — WhatsApp en 6 puntos + botón flotante
 - [x] **Sin errores de JS** en consola (verificado con DevTools)
 
-## ✨ Animaciones (GSAP + ScrollTrigger)
+## ✨ Animaciones (GSAP 3.13 + ScrollTrigger + ScrollSmoother + SplitText)
 
-En `js/animations.js` (se carga por CDN al final del body). **Toda la intensidad se ajusta desde el objeto `CFG`** al inicio del archivo: `duration`, `ease`, `fadeY` (y `fadeYMobile`), `stagger`, `countDuration`, `waPulse` (on/off del latido) y `waPulseEvery`.
+En `js/animations.js` (CDN al final del body). **Toda la intensidad se ajusta desde el objeto `CFG`** al inicio: duración, easing, distancias, stagger, `smooth` (inercia), Ken Burns, count, fuerza magnética, tilt, segundos del marquee, wipe y el latido del WhatsApp.
 
-- **Nav**: efecto "shrink" al scrollear (se achica + escala el logo) — vía CSS sobre la clase `.scrolled`.
-- **Hero**: timeline de entrada (badge pop → título/subtítulo fade-up → foto → CTAs/rating → tarjeta "$0" slide-in lateral). El floaty + glow del badge arrancan al terminar.
-- **Nosotros**: **count-up** de los 3 números (20 / 4.9 / $0) al entrar en viewport.
-- **Servicios / Opiniones / Contacto / Diferenciales**: reveals fade-up en stagger; realce de los números 01/02/03 y del badge 4.9★.
-- **WhatsApp flotante**: latido sutil y espaciado (desactivable con `CFG.waPulse = false`).
-- **Buenas prácticas**: solo `transform`/`opacity` (sin CLS), `ScrollTrigger` con `once:true`, parallax desactivado en mobile, y **`prefers-reduced-motion`** respetado (todo en estado final, sin movimiento ni latido). Si GSAP no carga, el contenido se ve igual (degradación segura).
+- **Scroll suave global** con ScrollSmoother (inercia leve). Requiere el wrapper `#smooth-wrapper > #smooth-content` (header, barra de progreso y WhatsApp quedan afuera, son `fixed`). Desactivado en mobile.
+- **Barra de progreso** de scroll arriba de todo (degradado azul→amarillo).
+- **Hero cinemático**: título con **SplitText** palabra por palabra subiendo detrás de una máscara; badge/subtítulo/CTAs/rating en cascada; la foto entra con **clip-path reveal** + **Ken Burns** (zoom lento infinito) + parallax (`data-speed`).
+- **Botones CTA magnéticos** (siguen al cursor) — solo desktop/no-touch.
+- **Nosotros**: **count-up** (20 / 4.9 / $0) con **blur** que se aclara.
+- **Servicios**: cards con rotación/skew + números 01/02/03 con scale marcado.
+- **Diferenciales**: **marquee infinito** (cinta), pausa al hover.
+- **Opiniones**: cards con desplazamiento 3D + **tilt** siguiendo el mouse (desktop).
+- **Títulos de sección**: reveal tipo **wipe** (clip-path).
+- **WhatsApp**: entrada con bounce + latido sutil y espaciado.
+- **Reglas respetadas**: sobre todo `transform`/`opacity` (clip-path/filter solo donde se pidió, sin CLS); `ScrollTrigger` con `once:true`; en mobile se bajan intensidades y se apagan smoother/parallax/tilt/magnético; **`prefers-reduced-motion`** → todo en estado final, sin movimiento ni marquee ni latido. Si GSAP no carga, el contenido se ve igual (degradación segura).
+- **Parallax**: ahora vía `data-speed` de ScrollSmoother (ya no en `main.js`).
 
 ## ⚙️ Efectos implementados
 

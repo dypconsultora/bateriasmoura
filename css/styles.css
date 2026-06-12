@@ -1,0 +1,421 @@
+/* =================================================================
+   BATERÍAS MOURA SAN ANDRÉS — Estilos propios
+   Sistema "Energía Moura": dark + azul Moura + amarillo eléctrico.
+   Tailwind (CDN) maneja el layout; este archivo maneja
+   parallax, animaciones de aparición y micro-interacciones.
+   ================================================================= */
+
+:root {
+  --carbon:    #0B1220;
+  --carbon-800:#0F1B33;
+  --carbon-700:#13234A;
+  --moura:     #2563EB;
+  --moura-500: #3B82F6;
+  --energy:    #FACC15;
+  --wa:        #25D366;
+  --wa-900:    #06351B;
+  --surface:   #F8FAFC;
+  --ink:       #0F172A;
+}
+
+/* ---------- Base ---------- */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+/* Compensa el header fijo al saltar a una sección con ancla */
+section[id] { scroll-margin-top: 80px; }
+body { overflow-x: hidden; }
+::selection { background: var(--energy); color: var(--carbon); }
+
+/* Scrollbar sutil (no intrusiva) */
+@media (pointer: fine) {
+  ::-webkit-scrollbar { width: 11px; }
+  ::-webkit-scrollbar-track { background: var(--carbon); }
+  ::-webkit-scrollbar-thumb { background: #2a3a5e; border-radius: 99px; border: 3px solid var(--carbon); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--moura); }
+}
+
+/* ---------- Accesibilidad: skip link ---------- */
+.skip-link {
+  position: absolute; left: 1rem; top: -100px; z-index: 100;
+  background: var(--energy); color: var(--carbon);
+  padding: .6rem 1rem; border-radius: 8px; font-weight: 600;
+  transition: top .2s ease;
+}
+.skip-link:focus { top: 1rem; }
+
+/* Foco visible y consistente para teclado */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid var(--energy); outline-offset: 3px; border-radius: 6px;
+}
+
+/* =================================================================
+   HEADER STICKY
+   ================================================================= */
+#site-header { background: transparent; }
+/* Estado al hacer scroll (clase agregada por JS) */
+#site-header.scrolled {
+  background: rgba(11, 18, 32, .92);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  box-shadow: 0 8px 30px -12px rgba(0,0,0,.6);
+}
+
+.nav-link {
+  position: relative; color: rgba(255,255,255,.82); transition: color .2s ease;
+  font-family: "Space Grotesk", ui-sans-serif, sans-serif;
+  text-transform: uppercase; letter-spacing: .09em;
+  font-size: .95rem; font-weight: 500;
+}
+.nav-link:hover { color: #fff; }
+.nav-link::after {
+  content: ""; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0;
+  background: var(--energy); transition: width .25s ease;
+}
+.nav-link:hover::after { width: 100%; }
+.mobile-link {
+  transition: background .2s ease, padding-left .2s ease;
+  font-family: "Space Grotesk", ui-sans-serif, sans-serif;
+  text-transform: uppercase; letter-spacing: .08em;
+  font-size: 1rem; font-weight: 500;
+}
+.mobile-link:hover { padding-left: 1rem; }
+
+/* =================================================================
+   BOTONES (micro-interacciones)
+   ================================================================= */
+.btn-wa, .btn-moura, .btn-ghost {
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease, background-color .2s ease, filter .2s ease;
+  will-change: transform;
+}
+.btn-wa:hover    { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 16px 34px -10px rgba(37,211,102,.5); }
+.btn-wa:active   { transform: translateY(0) scale(.98); }
+.btn-moura:hover { transform: translateY(-2px); background: var(--moura-500); box-shadow: 0 16px 30px -12px rgba(37,99,235,.55); }
+.btn-moura:active{ transform: translateY(0) scale(.98); }
+.btn-ghost:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.4); transform: translateY(-2px); }
+
+/* =================================================================
+   PARALLAX (capas genéricas)
+   El JS mueve estas capas con translate3d según el scroll.
+   ================================================================= */
+.parallax-layer { position: absolute; inset: 0; pointer-events: none; will-change: transform; }
+
+/* =================================================================
+   HERO
+   ================================================================= */
+.hero-bg { position: absolute; inset: 0; overflow: hidden; }
+/* Glow radial azul detrás del texto */
+.hero-glow {
+  background:
+    radial-gradient(60% 55% at 18% 30%, rgba(37,99,235,.34) 0%, transparent 60%),
+    radial-gradient(45% 45% at 85% 75%, rgba(250,204,21,.12) 0%, transparent 60%);
+}
+/* Grilla técnica sutil */
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(circle at 50% 35%, #000 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at 50% 35%, #000 0%, transparent 75%);
+}
+/* Rayo gigante de fondo (energía) */
+.hero-bolt {
+  display: flex; align-items: center; justify-content: flex-end;
+  color: rgba(250,204,21,.05); right: -6%; left: auto; width: 60%;
+}
+.hero-bolt svg { width: clamp(20rem, 42vw, 42rem); height: auto; }
+
+/* Marco de la foto del hero */
+.hero-photo-frame {
+  position: relative; border-radius: 24px; overflow: visible;
+  will-change: transform;
+}
+/* Foto del técnico tratada como fondo + zoom para recortar la
+   banda de texto quemado del original (queda fuera del marco). */
+.hero-photo {
+  width: 100%; aspect-ratio: 4 / 4.7;
+  background-image: url("../assets/img/tecnico.webp");
+  background-size: 162%;
+  background-position: 50% 14%;
+  background-repeat: no-repeat;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,.8), 0 0 0 1px rgba(37,99,235,.15);
+  transform: rotate(1.5deg);
+}
+.hero-badge {
+  position: absolute; left: -22px; bottom: 26px;
+  background: rgba(15,27,51,.92); backdrop-filter: blur(6px);
+  border: 1px solid rgba(250,204,21,.35); border-radius: 18px;
+  padding: 14px 18px; text-align: center;
+  box-shadow: 0 20px 40px -16px rgba(0,0,0,.7);
+  animation: floaty 5s ease-in-out infinite;
+}
+@keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+
+/* Indicador de scroll del hero */
+.hero-scroll-cue {
+  position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%);
+  display: grid; place-items: center; width: 42px; height: 42px;
+  color: rgba(255,255,255,.65); border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px; animation: bob 2s ease-in-out infinite; transition: color .2s, border-color .2s;
+}
+.hero-scroll-cue:hover { color: var(--energy); border-color: var(--energy); }
+@keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(7px); } }
+
+/* =================================================================
+   SECCIONES — tipografía de apoyo
+   ================================================================= */
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .8rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--moura);
+}
+.section-title {
+  font-family: "Outfit", sans-serif; font-weight: 800;
+  font-size: clamp(1.9rem, 4vw, 2.9rem); line-height: 1.1; color: var(--ink);
+  letter-spacing: -.01em;
+}
+.section-title-light {
+  font-family: "Outfit", sans-serif; font-weight: 800;
+  font-size: clamp(1.9rem, 4vw, 2.9rem); line-height: 1.1; color: #fff;
+  letter-spacing: -.01em;
+}
+
+/* =================================================================
+   DIFERENCIALES
+   ================================================================= */
+.diff-item {
+  display: flex; align-items: center; gap: .6rem;
+  color: #e5ecf7; font-weight: 500; font-size: .95rem;
+}
+.diff-ico {
+  display: grid; place-items: center; flex: none;
+  width: 36px; height: 36px; border-radius: 999px;
+  background: rgba(37,211,102,.14); color: var(--wa);
+  transition: background .25s ease, transform .25s ease;
+}
+.diff-ico svg { width: 19px; height: 19px; }
+.diff-item:hover .diff-ico { background: rgba(37,211,102,.22); transform: translateY(-2px); }
+
+/* =================================================================
+   NOSOTROS
+   ================================================================= */
+.about-photo-frame {
+  border-radius: 24px; overflow: hidden;
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: 0 40px 70px -34px rgba(15,23,42,.4);
+  aspect-ratio: 1 / 1; will-change: transform;
+}
+.about-rating-card {
+  position: absolute; right: -14px; bottom: -22px;
+  background: #fff; border: 1px solid rgba(15,23,42,.08);
+  border-radius: 18px; padding: 16px 20px; text-align: center;
+  box-shadow: 0 24px 48px -20px rgba(15,23,42,.35);
+}
+.stat-card {
+  background: #fff; border: 1px solid rgba(15,23,42,.07);
+  border-radius: 16px; padding: 1.1rem 1rem; text-align: center;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.stat-card:hover { transform: translateY(-4px); box-shadow: 0 20px 36px -22px rgba(37,99,235,.4); border-color: rgba(37,99,235,.3); }
+.stat-num { font-family: "Outfit", sans-serif; font-weight: 800; font-size: clamp(1.6rem, 3.5vw, 2.1rem); color: var(--ink); line-height: 1; }
+.stat-label { margin-top: .4rem; font-size: .76rem; color: #64748b; line-height: 1.3; }
+
+/* =================================================================
+   SERVICIOS (3 pilares)
+   ================================================================= */
+.services-glow {
+  background: radial-gradient(50% 50% at 80% 10%, rgba(37,99,235,.22) 0%, transparent 60%),
+              radial-gradient(40% 40% at 5% 90%, rgba(250,204,21,.08) 0%, transparent 60%);
+}
+.service-card {
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.1); border-radius: 22px;
+  padding: 2.2rem 1.8rem 2rem;
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(250,204,21,.45);
+  box-shadow: 0 30px 60px -30px rgba(0,0,0,.7);
+}
+.service-card::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--moura), var(--energy));
+  transform: scaleX(0); transform-origin: left; transition: transform .35s ease;
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-step {
+  position: absolute; top: 1.2rem; right: 1.4rem;
+  font-family: "Outfit", sans-serif; font-weight: 800; font-size: 2.6rem;
+  color: rgba(255,255,255,.06); line-height: 1;
+  transform-origin: top right; /* crece hacia adentro, no se sale del recuadro */
+  transition: color .3s ease, transform .3s ease;
+}
+.service-card:hover .service-step {
+  color: rgba(255,255,255,.9);
+  transform: scale(2);
+}
+.service-icon {
+  display: grid; place-items: center; width: 58px; height: 58px;
+  border-radius: 16px; background: rgba(37,99,235,.16); color: var(--moura-500);
+  transition: transform .3s ease, background .3s ease, color .3s ease;
+}
+.service-icon svg { width: 30px; height: 30px; }
+.service-card:hover .service-icon { background: var(--energy); color: var(--carbon); transform: scale(1.06) rotate(-4deg); }
+.service-title { margin-top: 1.3rem; font-family: "Outfit", sans-serif; font-weight: 700; font-size: 1.4rem; color: #fff; }
+.service-text { margin-top: .7rem; color: #aeb9cc; line-height: 1.65; font-size: .98rem; }
+
+/* =================================================================
+   BANDA "A DOMICILIO" (parallax con foto de fondo)
+   ================================================================= */
+.domicilio-band { position: relative; overflow: hidden; background: var(--carbon); }
+.domicilio-bg {
+  position: absolute; inset: -15% 0; /* extra alto para el movimiento parallax */
+  background-image: url("../assets/img/domicilio.webp");
+  background-size: cover; background-position: center 40%;
+  will-change: transform;
+}
+.domicilio-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(11,18,32,.82) 0%, rgba(11,18,32,.72) 50%, rgba(11,18,32,.9) 100%);
+}
+
+/* =================================================================
+   OPINIONES (carrusel)
+   ================================================================= */
+.review-stars { color: #FBBF24; letter-spacing: 1px; }
+
+/* Badge compacto de Google */
+.reviews-badge {
+  display: flex; align-items: center; gap: 14px;
+  background: #fff; border: 1px solid rgba(15,23,42,.08); border-radius: 18px;
+  padding: 14px 20px; box-shadow: 0 20px 40px -28px rgba(15,23,42,.3);
+}
+
+/* Pista del carrusel */
+.reviews-viewport { overflow: hidden; padding: 4px; margin: -4px; }
+.reviews-track {
+  display: flex; gap: 20px;
+  transition: transform .55s cubic-bezier(.16,1,.3,1);
+  will-change: transform;
+}
+
+/* Tarjeta de reseña — 1 / 2 / 4 por vista según el ancho */
+.review-card {
+  flex: 0 0 100%;
+  background: #fff; border: 1px solid rgba(15,23,42,.08); border-radius: 20px;
+  padding: 1.6rem 1.5rem;
+  box-shadow: 0 20px 44px -32px rgba(15,23,42,.35);
+  display: flex; flex-direction: column; gap: 1rem;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.review-card:hover { transform: translateY(-5px); border-color: rgba(37,99,235,.3); box-shadow: 0 30px 56px -30px rgba(37,99,235,.35); }
+@media (min-width: 640px)  { .review-card { flex-basis: calc((100% - 20px) / 2); } }
+@media (min-width: 1024px) { .review-card { flex-basis: calc((100% - 60px) / 4); } }
+
+.review-head { display: flex; align-items: center; gap: 12px; }
+.review-avatar {
+  flex: none; width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center; color: #fff;
+  font-family: "Outfit", sans-serif; font-weight: 700; font-size: 1rem;
+}
+.review-name { font-weight: 600; color: var(--ink); font-size: .98rem; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.review-meta { font-size: .76rem; color: #94a3b8; margin-top: 2px; }
+.review-text { color: #475569; line-height: 1.6; font-size: .95rem; }
+
+/* Controles */
+.reviews-controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 2.2rem; }
+.rev-arrow {
+  display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
+  background: #fff; border: 1px solid rgba(15,23,42,.12); color: var(--ink); cursor: pointer;
+  transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.rev-arrow:hover { background: var(--moura); color: #fff; border-color: var(--moura); transform: translateY(-2px); box-shadow: 0 12px 24px -12px rgba(37,99,235,.5); }
+.rev-arrow:active { transform: translateY(0) scale(.96); }
+.reviews-dots { display: flex; align-items: center; gap: 8px; }
+.rev-dot { width: 9px; height: 9px; border-radius: 50%; background: #cbd5e1; border: none; cursor: pointer; padding: 0; transition: background .25s ease, width .25s ease; }
+.rev-dot:hover { background: #94a3b8; }
+.rev-dot.active { background: var(--moura); width: 26px; border-radius: 5px; }
+
+/* =================================================================
+   CONTACTO
+   ================================================================= */
+.contact-card {
+  display: flex; align-items: center; gap: 1rem;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 18px; padding: 1.1rem 1.3rem;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+/* El efecto aplica a las 3 tarjetas (incluida la de Teléfonos, que es un
+   div porque contiene dos links), no solo a las que son <a>. */
+.contact-card:hover { transform: translateX(5px); border-color: rgba(250,204,21,.4); background: rgba(255,255,255,.06); }
+.contact-icon { display: grid; place-items: center; flex: none; width: 50px; height: 50px; border-radius: 14px; }
+.contact-body { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+.contact-label { font-size: .76rem; text-transform: uppercase; letter-spacing: .12em; color: #7c89a3; font-weight: 600; }
+.contact-value { color: #e7edf7; font-weight: 600; font-size: 1.02rem; transition: color .2s ease; }
+/* El mapa estira a la misma altura que la columna de tarjetas (grid stretch). */
+.map-frame {
+  border-radius: 20px; overflow: hidden; height: 100%;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 30px 60px -34px rgba(0,0,0,.7);
+  filter: grayscale(.2) contrast(1.05);
+}
+.map-frame iframe { display: block; width: 100%; height: 100%; }
+/* En mobile/tablet (columna apilada) no hay con quién igualar: altura fija. */
+@media (max-width: 1023px) { .map-frame { height: 340px; } }
+
+/* =================================================================
+   BOTÓN FLOTANTE DE WHATSAPP
+   ================================================================= */
+#wa-float {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+  display: grid; place-items: center; width: 58px; height: 58px;
+  background: var(--wa); color: #fff; border-radius: 999px;
+  box-shadow: 0 14px 30px -8px rgba(37,211,102,.6);
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+  opacity: 0; transform: scale(0) translateY(20px);
+}
+#wa-float.visible { opacity: 1; transform: scale(1) translateY(0); }
+#wa-float:hover { transform: scale(1.08) translateY(-2px); box-shadow: 0 18px 38px -8px rgba(37,211,102,.75); }
+#wa-float svg { width: 30px; height: 30px; }
+.wa-float-pulse {
+  position: absolute; inset: 0; border-radius: 999px; background: var(--wa);
+  z-index: -1; animation: wa-pulse 2.4s ease-out infinite;
+}
+@keyframes wa-pulse {
+  0% { transform: scale(1); opacity: .55; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* =================================================================
+   SCROLL REVEAL (aparición de secciones — IntersectionObserver)
+   ================================================================= */
+[data-reveal] {
+  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+}
+/* Solo ocultamos si hay JS (clase .js en <html>). Sin JS = todo visible. */
+.js [data-reveal] { opacity: 0; transform: translateY(34px); }
+[data-reveal].revealed { opacity: 1; transform: none; }
+
+/* =================================================================
+   PREFERENCIA DE MOVIMIENTO REDUCIDO (accesibilidad)
+   Desactiva parallax y animaciones para quien lo pide.
+   ================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .parallax-layer, .domicilio-bg, .hero-photo-frame, .about-photo-frame { transform: none !important; }
+  .hero-photo { transform: rotate(0); }
+}
+
+/* =================================================================
+   RESPONSIVE FINO
+   ================================================================= */
+@media (max-width: 640px) {
+  .hero-badge { left: 12px; bottom: 12px; }
+  #wa-float { width: 54px; height: 54px; right: 16px; bottom: 16px; }
+  .about-rating-card { right: 8px; bottom: -16px; padding: 12px 16px; }
+}

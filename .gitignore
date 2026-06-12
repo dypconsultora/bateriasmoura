@@ -1,0 +1,6 @@
+# Sistema
+.DS_Store
+*.log
+
+# Config local de preview (rutas absolutas de esta máquina)
+.claude/

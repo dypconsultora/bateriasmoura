@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Marca que hay JS activo. El scroll-reveal solo oculta contenido si esta
+       clase existe; así, sin JS, todo el contenido se ve igual (SEO + robustez). -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- ===================== SEO ON-PAGE ===================== -->
+  <title>Baterías Moura San Andrés | Cambio de batería a domicilio SIN CARGO</title>
+  <meta name="description" content="Cambiamos la batería de tu auto a domicilio. Entrega e instalación sin cargo en San Andrés y zona. 20 años de experiencia · 4.9★ en Google · Atención por WhatsApp." />
+  <meta name="keywords" content="baterías Moura, batería a domicilio, cambio de batería San Andrés, baterías para auto, instalación sin cargo, Moura San Andrés" />
+  <meta name="author" content="Baterías Moura San Andrés" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0B1220" />
+  <link rel="canonical" href="https://bateriasmourasanandres.com.ar/" />
+
+  <!-- Open Graph / redes sociales -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_AR" />
+  <meta property="og:site_name" content="Baterías Moura San Andrés" />
+  <meta property="og:title" content="Baterías Moura San Andrés | Cambio de batería a domicilio SIN CARGO" />
+  <meta property="og:description" content="Entrega e instalación de baterías sin cargo. 20 años de experiencia y 4.9★ en Google. Pedí la tuya por WhatsApp." />
+  <meta property="og:url" content="https://bateriasmourasanandres.com.ar/" />
+  <meta property="og:image" content="https://bateriasmourasanandres.com.ar/assets/img/domicilio.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Baterías Moura San Andrés | Batería a domicilio SIN CARGO" />
+  <meta name="twitter:description" content="Cambiamos la batería de tu auto a domicilio. Instalación sin cargo · 4.9★ en Google." />
+  <meta name="twitter:image" content="https://bateriasmourasanandres.com.ar/assets/img/domicilio.webp" />
+
+  <!-- Favicon (ícono de la batería del logo) -->
+  <link rel="icon" href="assets/img/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+
+  <!-- ===================== TIPOGRAFÍAS (Outfit + Work Sans) ===================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ===================== TAILWIND (Play CDN) + TOKENS DE MARCA ===================== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tokens de marca "Energía Moura" — editá los HEX acá para cambiar toda la paleta.
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            carbon:  { DEFAULT: '#0B1220', 900: '#0B1220', 800: '#0F1B33', 700: '#13234A' },
+            moura:   { DEFAULT: '#2563EB', 700: '#1D4ED8', 600: '#2563EB', 500: '#3B82F6' },
+            energy:  { DEFAULT: '#FACC15', 500: '#EAB308', 400: '#FACC15' },
+            wa:      { DEFAULT: '#25D366', 700: '#128C7E', 900: '#06351B' },
+            surface: '#F8FAFC',
+            ink:     '#0F172A',
+          },
+          fontFamily: {
+            display: ['Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            body:    ['"Work Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            nav:     ['"Space Grotesk"', 'ui-sans-serif', 'sans-serif'],
+          },
+          maxWidth: { content: '1200px' },
+        },
+      },
+    };
+  </script>
+
+  <!-- Estilos propios (parallax, animaciones, micro-interacciones) -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- ===================== DATOS ESTRUCTURADOS (LocalBusiness) ===================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoPartsStore",
+    "name": "Baterías Moura San Andrés",
+    "description": "Venta, entrega e instalación de baterías para autos a domicilio sin cargo. 20 años de experiencia.",
+    "image": "https://bateriasmourasanandres.com.ar/assets/img/logo.png",
+    "url": "https://bateriasmourasanandres.com.ar/",
+    "telephone": "+541158410072",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Islas Malvinas 2605",
+      "addressLocality": "San Andrés",
+      "addressRegion": "Buenos Aires",
+      "addressCountry": "AR"
+    },
+    "areaServed": "San Andrés y Gran Buenos Aires",
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    }],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "bestRating": "5",
+      "ratingCount": "100"
+    },
+    "sameAs": ["https://www.google.com/search?q=BATERIAS+MOURA+SAN+ANDRES"]
+  }
+  </script>
+</head>
+
+<body class="font-body bg-surface text-ink antialiased">
+
+  <!-- Link de salto para accesibilidad -->
+  <a href="#hero" class="skip-link">Saltar al contenido</a>
+
+  <!-- ============================================================= -->
+  <!-- HEADER STICKY (cambia de transparente a sólido al scrollear)  -->
+  <!-- ============================================================= -->
+  <header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+    <div class="mx-auto max-w-content px-5 lg:px-8">
+      <nav class="flex items-center justify-between h-[72px]" aria-label="Navegación principal">
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center shrink-0" aria-label="Baterías Moura San Andrés — inicio">
+          <img src="assets/img/logo-dark.webp" width="193" height="36" alt="Baterías Moura San Andrés"
+               class="h-9 w-auto" />
+        </a>
+
+        <!-- Links de escritorio -->
+        <ul class="hidden lg:flex items-center gap-8 text-sm font-medium nav-links">
+          <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+          <li><a href="#servicios" class="nav-link">Servicios</a></li>
+          <li><a href="#opiniones" class="nav-link">Opiniones</a></li>
+          <li><a href="#contacto" class="nav-link">Contacto</a></li>
+        </ul>
+
+        <!-- CTA WhatsApp + botón mobile -->
+        <div class="flex items-center gap-3">
+          <a href="https://api.whatsapp.com/send?phone=541158410072&text=Hola%2C%20necesito%20ayuda%20con%20la%20compra%20de%20una%20bater%C3%ADa.%20Gracias."
+             target="_blank" rel="noopener"
+             class="hidden sm:inline-flex items-center gap-2 rounded-full bg-wa px-4 py-2.5 text-sm font-semibold text-wa-900 shadow-lg shadow-wa/20 btn-wa">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            Cotiza sin costo
+          </a>
+          <button id="menu-toggle" class="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg text-white"
+                  aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+            <svg class="h-6 w-6 icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <svg class="h-6 w-6 icon-close hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Menú mobile desplegable -->
+    <div id="mobile-menu" class="lg:hidden hidden bg-carbon-800/98 backdrop-blur border-t border-white/10">
+      <ul class="mx-auto max-w-content px-5 py-4 flex flex-col gap-1 text-white">
+        <li><a href="#nosotros" class="block py-3 px-2 rounded-lg hover:bg-white/5 mobile-link">Nosotros</a></li>
+        <li><a href="#servicios" class="block py-3 px-2 rounded-lg hover:bg-white/5 mobile-link">Servicios</a></li>
+        <li><a href="#opiniones" class="block py-3 px-2 rounded-lg hover:bg-white/5 mobile-link">Opiniones</a></li>
+        <li><a href="#contacto" class="block py-3 px-2 rounded-lg hover:bg-white/5 mobile-link">Contacto</a></li>
+        <li class="pt-2">
+          <a href="https://api.whatsapp.com/send?phone=541158410072&text=Hola%2C%20necesito%20ayuda%20con%20la%20compra%20de%20una%20bater%C3%ADa.%20Gracias."
+             target="_blank" rel="noopener"
+             class="flex items-center justify-center gap-2 rounded-full bg-wa px-4 py-3 font-semibold text-wa-900">
+            Pedí por WhatsApp
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+  <!-- ============================================================= -->
+  <!-- HERO (pantalla completa, dark, parallax en capas)             -->
+  <!-- ============================================================= -->
+  <section id="hero" class="relative min-h-[100svh] flex items-center overflow-hidden bg-carbon-900 text-white pt-24 pb-16">
+    <!-- Capas de fondo con parallax (movimiento a distinta velocidad) -->
+    <div class="hero-bg" aria-hidden="true">
+      <div class="parallax-layer hero-glow" data-parallax="0.18"></div>
+      <div class="parallax-layer hero-grid" data-parallax="0.30"></div>
+      <div class="parallax-layer hero-bolt" data-parallax="0.45"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    </div>
+
+    <div class="relative mx-auto max-w-content px-5 lg:px-8 grid lg:grid-cols-12 gap-12 items-center w-full">
+      <!-- Columna de texto -->
+      <div class="lg:col-span-7" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full border border-energy/30 bg-energy/10 px-4 py-1.5 text-xs font-semibold tracking-widest uppercase text-energy">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 20 años de experiencia
+        </p>
+        <h1 class="mt-6 font-display font-extrabold leading-[1.05] text-4xl sm:text-5xl lg:text-6xl">
+          Cambiamos la batería<br class="hidden sm:block" /> de tu auto
+          <span class="text-moura-500">a domicilio</span>.<br />
+          <span class="text-energy">Entrega e instalación SIN CARGO.</span>
+        </h1>
+        <p class="mt-6 max-w-xl text-base sm:text-lg text-slate-300 leading-relaxed">
+          Honestidad, buen servicio y rapidez de entrega, sumado a buenos precios.
+          Vamos donde estés y te dejamos el auto andando.
+        </p>
+
+        <!-- CTAs principales -->
+        <div class="mt-9 flex flex-col sm:flex-row gap-4">
+          <a href="https://api.whatsapp.com/send?phone=541158410072&text=Hola%2C%20necesito%20ayuda%20con%20la%20compra%20de%20una%20bater%C3%ADa.%20Gracias."
+             target="_blank" rel="noopener"
+             class="group inline-flex items-center justify-center gap-2.5 rounded-full bg-wa px-7 py-4 text-base font-bold text-wa-900 shadow-xl shadow-wa/25 btn-wa">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            Pedí tu batería ahora
+          </a>
+          <a href="#servicios" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-4 text-base font-semibold text-white btn-ghost">
+            Ver servicios
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <!-- Mini prueba social bajo los CTAs -->
+        <div class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-slate-400">
+          <a href="https://www.google.com/search?q=BATERIAS+MOURA+SAN+ANDRES" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-white transition-colors">
+            <span class="text-energy" aria-hidden="true">★★★★★</span>
+            <span><strong class="text-white">4.9</strong> en Google</span>
+          </a>
+          <span class="hidden sm:flex items-center gap-2"><span class="text-wa" aria-hidden="true">●</span> Entrega a domicilio sin cargo</span>
+          <span class="flex items-center gap-2"><span class="text-wa" aria-hidden="true">●</span> Local a la calle</span>
+        </div>
+      </div>
+
+      <!-- Columna de imagen (foto del técnico con float + parallax) -->
+      <div class="lg:col-span-5 hidden lg:block" data-reveal data-reveal-delay="150">
+        <div class="hero-photo-frame" data-parallax="-0.12">
+          <div class="hero-photo" role="img"
+               aria-label="Técnico de Baterías Moura San Andrés listo para la instalación a domicilio"></div>
+          <!-- Badge flotante "SIN CARGO" -->
+          <div class="hero-badge">
+            <span class="block text-2xl font-display font-extrabold text-energy leading-none">$0</span>
+            <span class="block text-[11px] font-semibold uppercase tracking-wider text-white/90 mt-1">Instalación<br />sin cargo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Indicador de scroll -->
+    <a href="#diferenciales" class="hero-scroll-cue" aria-label="Bajar">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+    </a>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- DIFERENCIALES (franja de checks)                              -->
+  <!-- ============================================================= -->
+  <section id="diferenciales" class="relative z-10 -mt-px bg-carbon-800 border-y border-white/10">
+    <div class="mx-auto max-w-content px-5 lg:px-8 py-8">
+      <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-5">
+        <li class="diff-item" data-reveal>
+          <span class="diff-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span>
+          Atención al cliente
+        </li>
+        <li class="diff-item" data-reveal data-reveal-delay="60">
+          <span class="diff-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></span>
+          Entrega a domicilio
+        </li>
+        <li class="diff-item" data-reveal data-reveal-delay="120">
+          <span class="diff-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M2 7h20"/><path d="M9 22V12h6v10"/></svg></span>
+          Local a la calle
+        </li>
+        <li class="diff-item" data-reveal data-reveal-delay="180">
+          <span class="diff-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+          Post venta
+        </li>
+        <li class="diff-item" data-reveal data-reveal-delay="240">
+          <span class="diff-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.41l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>
+          Calidad y precio
+        </li>
+        <li class="diff-item" data-reveal data-reveal-delay="300">
+          <span class="diff-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+          4.9 en Google
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- NOSOTROS + ESTADÍSTICAS                                       -->
+  <!-- ============================================================= -->
+  <section id="nosotros" class="relative py-20 lg:py-28 bg-surface overflow-hidden">
+    <div class="mx-auto max-w-content px-5 lg:px-8 grid lg:grid-cols-2 gap-14 items-center">
+      <!-- Imagen del local con parallax suave -->
+      <div class="relative" data-reveal>
+        <div class="about-photo-frame" data-parallax="-0.06">
+          <img src="assets/img/local.webp" width="580" height="540" loading="lazy"
+               alt="Local de Baterías Moura San Andrés con stock de baterías Moura"
+               class="w-full h-full object-cover rounded-2xl" />
+        </div>
+        <!-- Tarjeta flotante de rating -->
+        <div class="about-rating-card">
+          <div class="text-energy text-lg leading-none" aria-hidden="true">★★★★★</div>
+          <div class="mt-1 font-display font-extrabold text-2xl text-ink">4.9<span class="text-base font-semibold text-slate-400">/5</span></div>
+          <div class="text-xs text-slate-500">Opiniones de Google</div>
+        </div>
+      </div>
+
+      <!-- Texto -->
+      <div data-reveal data-reveal-delay="120">
+        <p class="section-eyebrow">Quiénes somos</p>
+        <h2 class="section-title mt-3">Empresa con <span class="text-moura">20 años de experiencia</span> en el rubro</h2>
+        <p class="mt-5 text-lg text-slate-600 leading-relaxed">
+          Nos respaldan dos décadas trabajando con baterías. Lo nuestro es la
+          <strong class="text-ink">honestidad</strong>, el <strong class="text-ink">buen servicio</strong> y la
+          <strong class="text-ink">rapidez de entrega</strong>, sumado a buenos precios. Ofrecemos servicio de
+          colocación a domicilio para que no muevas el auto ni pierdas tiempo.
+        </p>
+
+        <!-- Estadísticas -->
+        <div class="mt-9 grid grid-cols-3 gap-4">
+          <div class="stat-card" data-reveal>
+            <div class="stat-num">20</div>
+            <div class="stat-label">Años de experiencia</div>
+          </div>
+          <div class="stat-card" data-reveal data-reveal-delay="80">
+            <div class="stat-num">4.9<span class="text-energy">★</span></div>
+            <div class="stat-label">Opiniones de Google</div>
+          </div>
+          <div class="stat-card" data-reveal data-reveal-delay="160">
+            <div class="stat-num">$0</div>
+            <div class="stat-label">Entrega e instalación</div>
+          </div>
+        </div>
+
+        <!-- Botón que baja suave hasta la sección de Opiniones -->
+        <a href="#opiniones" class="mt-8 inline-flex items-center gap-2 rounded-full bg-moura px-7 py-3.5 text-sm font-semibold text-white btn-moura">
+          Ver opiniones de clientes
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- SERVICIOS / 3 PILARES (cards)                                 -->
+  <!-- ============================================================= -->
+  <section id="servicios" class="relative py-20 lg:py-28 bg-carbon-900 text-white overflow-hidden">
+    <!-- Capa parallax decorativa -->
+    <div class="parallax-layer services-glow" data-parallax="0.20" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-content px-5 lg:px-8">
+      <div class="max-w-2xl" data-reveal>
+        <p class="section-eyebrow text-energy">Cómo trabajamos</p>
+        <h2 class="section-title-light mt-3">Un servicio completo, de principio a fin</h2>
+        <p class="mt-4 text-slate-400 text-lg">Te acompañamos en cada etapa para que elijas bien y tu auto quede impecable.</p>
+      </div>
+
+      <div class="mt-14 grid md:grid-cols-3 gap-6">
+        <!-- 1. Asesoramiento -->
+        <article class="service-card" data-reveal>
+          <span class="service-step">01</span>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 18.5h5M10 21h4M12 2a7 7 0 00-4 12.7c.6.5 1 1.2 1 2h6c0-.8.4-1.5 1-2A7 7 0 0012 2z"/></svg>
+          </div>
+          <h3 class="service-title">Asesoramiento</h3>
+          <p class="service-text">
+            Un buen asesoramiento al definir el tipo de batería es fundamental para no equivocar la
+            elección y lograr durabilidad. Ponemos nuestra experiencia a tu disposición.
+          </p>
+        </article>
+
+        <!-- 2. Instalación -->
+        <article class="service-card" data-reveal data-reveal-delay="120">
+          <span class="service-step">02</span>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 00-5.4 5.4l-6 6a1.4 1.4 0 002 2l6-6a4 4 0 005.4-5.4l-2.3 2.3-2-2 2.3-2.3z"/></svg>
+          </div>
+          <h3 class="service-title">Instalación</h3>
+          <p class="service-text">
+            Personal idóneo y capacitado. El cambio se hace manteniendo la línea siempre alimentada,
+            sin desprogramar estéreos, computadoras de abordo ni sistemas satelitales.
+          </p>
+        </article>
+
+        <!-- 3. Post venta -->
+        <article class="service-card" data-reveal data-reveal-delay="240">
+          <span class="service-step">03</span>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3 class="service-title">Post venta</h3>
+          <p class="service-text">
+            Realizamos controles del sistema eléctrico y carga de la batería para evitar
+            inconvenientes futuros. Te seguimos acompañando después de la compra.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- BANDA "A DOMICILIO" (parallax full-width con foto)            -->
+  <!-- ============================================================= -->
+  <section class="domicilio-band" aria-label="Servicio a domicilio">
+    <div class="domicilio-bg" data-parallax="0.25" aria-hidden="true"></div>
+    <div class="domicilio-overlay" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-content px-5 lg:px-8 py-24 lg:py-32 text-white text-center">
+      <div data-reveal>
+        <p class="section-eyebrow text-energy justify-center">A domicilio</p>
+        <h2 class="mt-4 font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight max-w-3xl mx-auto">
+          Vamos donde estés y te dejamos<br class="hidden sm:block" /> el auto <span class="text-energy">andando</span>
+        </h2>
+        <p class="mt-5 text-lg text-slate-200 max-w-2xl mx-auto">
+          Nuestro equipo lleva la batería a tu domicilio, asegurando una experiencia cómoda y confiable.
+        </p>
+        <a href="https://api.whatsapp.com/send?phone=541158410072&text=Hola%2C%20necesito%20ayuda%20con%20la%20compra%20de%20una%20bater%C3%ADa.%20Gracias."
+           target="_blank" rel="noopener"
+           class="mt-9 inline-flex items-center justify-center gap-2.5 rounded-full bg-wa px-8 py-4 text-base font-bold text-wa-900 shadow-xl shadow-black/30 btn-wa">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Coordiná tu cambio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- OPINIONES / PRUEBA SOCIAL                                     -->
+  <!-- ============================================================= -->
+  <section id="opiniones" class="py-20 lg:py-28 bg-surface overflow-hidden">
+    <div class="mx-auto max-w-content px-5 lg:px-8">
+      <!-- Encabezado + badge de Google -->
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8" data-reveal>
+        <div class="max-w-2xl">
+          <p class="section-eyebrow">Prueba social</p>
+          <h2 class="section-title mt-3">Lo que dicen nuestros clientes</h2>
+          <p class="mt-4 text-lg text-slate-600 leading-relaxed">
+            Una calificación de <strong class="text-ink">4.9 sobre 5</strong> en Google, construida con
+            atención, rapidez y trabajos bien hechos.
+          </p>
+        </div>
+        <!-- Badge compacto de Google -->
+        <div class="reviews-badge shrink-0">
+          <svg viewBox="0 0 48 48" class="h-9 w-9 shrink-0" aria-hidden="true">
+            <path fill="#FFC107" d="M43.6 20.5h-1.9V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.3-.4-3.5z"/>
+            <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
+            <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35 26.7 36 24 36c-5.3 0-9.7-3.1-11.3-7.4l-6.5 5C9.6 39.6 16.2 44 24 44z"/>
+            <path fill="#1976D2" d="M43.6 20.5H24v8h11.3c-.8 2.2-2.2 4.1-4.1 5.6l6.2 5.2C40.9 36.5 44 30.8 44 24c0-1.3-.1-2.3-.4-3.5z"/>
+          </svg>
+          <div>
+            <div class="flex items-baseline gap-1.5">
+              <span class="font-display font-extrabold text-2xl text-ink leading-none">4.9</span>
+              <span class="review-stars text-sm" aria-hidden="true">★★★★★</span>
+            </div>
+            <span class="text-xs text-slate-500">Opiniones de Google</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== CARRUSEL DE OPINIONES (4 visibles, navegable) ====== -->
+      <!-- Reseñas reales del perfil de Google de Baterías Moura San Andrés. -->
+      <div class="reviews-carousel mt-12" data-reveal role="region" aria-label="Opiniones de clientes" aria-roledescription="carrusel">
+        <div class="reviews-viewport">
+          <div class="reviews-track" id="reviews-track">
+
+            <article class="review-card">
+              <div class="review-head">
+                <span class="review-avatar" style="background:#2563EB">FS</span>
+                <div class="min-w-0">
+                  <p class="review-name">Florencia Stryjek</p>
+                  <p class="review-meta"><span class="review-stars" aria-hidden="true">★★★★★</span> · hace 4 meses</p>
+                </div>
+              </div>
+              <p class="review-text">Pedí una batería de urgencia a la 1 de la mañana y a las 8:30 ya estaba Santino con la batería nueva y el posnet. Se comunicó cuando estaba cerca, me trató con mucha educación y me explicó todo. Rapidísima la entrega e instalación. ¡Me salvó el día!</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-head">
+                <span class="review-avatar" style="background:#0284C7">JS</span>
+                <div class="min-w-0">
+                  <p class="review-name">Jonathan Sciutto</p>
+                  <p class="review-meta"><span class="review-stars" aria-hidden="true">★★★★★</span> · hace 2 semanas</p>
+                </div>
+              </div>
+              <p class="review-text">Muy buena atención y servicio. Totalmente recomendable.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-head">
+                <span class="review-avatar" style="background:#4F46E5">LG</span>
+                <div class="min-w-0">
+                  <p class="review-name">Lua Gar</p>
+                  <p class="review-meta"><span class="review-stars" aria-hidden="true">★★★★★</span> · hace 1 mes</p>
+                </div>
+              </div>
+              <p class="review-text">Pedí presupuesto un sábado a las 11:00 y a las 11:30 ya había pasado el muchacho por mi casa para hacer el cambio. La atención excelente y muy buena onda. ¡Muchas gracias!</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-head">
+                <span class="review-avatar" style="background:#0D9488">VM</span>
+                <div class="min-w-0">
+                  <p class="review-name">Victoria Margheim</p>
+                  <p class="review-meta"><span class="review-stars" aria-hidden="true">★★★★★</span> · hace 2 meses</p>
+                </div>
+              </div>
+              <p class="review-text">Súper recomendables. Ya hice con ellos los últimos dos cambios de batería y en ambas una experiencia bárbara. Es un comercio familiar, son unos copados y con muy buena atención. ¡Gracias!</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-head">
+                <span class="review-avatar" style="background:#1D4ED8">MR</span>
+                <div class="min-w-0">
+                  <p class="review-name">Matías Rodríguez</p>
+                  <p class="review-meta"><span class="review-stars" aria-hidden="true">★★★★★</span> · hace 3 meses</p>
+                </div>
+              </div>
+              <p class="review-text">Me robaron la batería, les mandé un mensaje y en menos de media hora vinieron a resolver el problema. Un lujo esta gente. El instalador, un capo.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-head">
+                <span class="review-avatar" style="background:#0F766E">EF</span>
+                <div class="min-w-0">
+                  <p class="review-name">Edi Fanton</p>
+                  <p class="review-meta"><span class="review-stars" aria-hidden="true">★★★★★</span> · hace 3 meses</p>
+                </div>
+              </div>
+              <p class="review-text">Nos comunicamos a las 21:00 y la respuesta fue inmediata. A primera hora ya estaba Benja para cambiar la batería. Excelente servicio y rapidez, totalmente recomendable.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-head">
+                <span class="review-avatar" style="background:#3730A3">HE</span>
+                <div class="min-w-0">
+                  <p class="review-name">Hernán Ezequiel</p>
+                  <p class="review-meta"><span class="review-stars" aria-hidden="true">★★★★★</span> · hace 3 meses</p>
+                </div>
+              </div>
+              <p class="review-text">Compré una batería Moura y fueron geniales. Me atendieron súper amables, con la verdad, probaron y testearon todo, y a buen precio.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-head">
+                <span class="review-avatar" style="background:#1E40AF">M</span>
+                <div class="min-w-0">
+                  <p class="review-name">Maximiliano</p>
+                  <p class="review-meta"><span class="review-stars" aria-hidden="true">★★★★★</span> · hace 8 meses</p>
+                </div>
+              </div>
+              <p class="review-text">Es para sacarse el sombrero. Vinieron, me revisaron, me explicaron y cambiaron la batería. Todo en 10 minutos. Sin dudas para recomendar con los ojos cerrados.</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-head">
+                <span class="review-avatar" style="background:#0F1B33">MP</span>
+                <div class="min-w-0">
+                  <p class="review-name">Mathias Pionzio</p>
+                  <p class="review-meta"><span class="review-stars" aria-hidden="true">★★★★★</span> · hace 4 meses</p>
+                </div>
+              </div>
+              <p class="review-text">Llamé por teléfono, me asesoraron, vinieron a domicilio y resolvieron todo en 10 minutos. ¡Muy buen trabajo!</p>
+            </article>
+
+            <article class="review-card">
+              <div class="review-head">
+                <span class="review-avatar" style="background:#475569">MB</span>
+                <div class="min-w-0">
+                  <p class="review-name">María Blanco</p>
+                  <p class="review-meta"><span class="review-stars" aria-hidden="true">★★★★★</span> · hace 3 meses</p>
+                </div>
+              </div>
+              <p class="review-text">Excelente servicio. Muy responsables, llegan a horario y te asesoran en todo momento.</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Controles -->
+        <div class="reviews-controls">
+          <button class="rev-arrow" id="rev-prev" type="button" aria-label="Opiniones anteriores">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="reviews-dots" id="reviews-dots"></div>
+          <button class="rev-arrow" id="rev-next" type="button" aria-label="Opiniones siguientes">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- CTA a Google -->
+      <div class="mt-10 text-center" data-reveal>
+        <a href="https://www.google.com/search?q=BATERIAS+MOURA+SAN+ANDRES" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 rounded-full bg-moura px-7 py-3.5 text-sm font-semibold text-white btn-moura">
+          Ver todas las opiniones en Google
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- CONTACTO + MAPA                                               -->
+  <!-- ============================================================= -->
+  <section id="contacto" class="py-20 lg:py-28 bg-carbon-900 text-white overflow-hidden">
+    <div class="mx-auto max-w-content px-5 lg:px-8">
+      <div class="max-w-2xl" data-reveal>
+        <p class="section-eyebrow text-energy">Contacto</p>
+        <h2 class="section-title-light mt-3">Coordiná tu batería en minutos</h2>
+        <p class="mt-4 text-slate-400 text-lg">Escribinos por WhatsApp o acercate al local. Te asesoramos sin compromiso.</p>
+      </div>
+
+      <div class="mt-12 grid lg:grid-cols-2 gap-8">
+        <!-- Datos de contacto -->
+        <div class="space-y-4" data-reveal>
+          <!-- WhatsApp -->
+          <a href="https://api.whatsapp.com/send?phone=541158410072&text=Hola%2C%20necesito%20ayuda%20con%20la%20compra%20de%20una%20bater%C3%ADa.%20Gracias."
+             target="_blank" rel="noopener" class="contact-card group">
+            <span class="contact-icon bg-wa/15 text-wa">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            </span>
+            <span class="contact-body">
+              <span class="contact-label">WhatsApp</span>
+              <span class="contact-value">Escribinos ahora →</span>
+            </span>
+          </a>
+
+          <!-- Teléfonos -->
+          <div class="contact-card !cursor-default">
+            <span class="contact-icon bg-moura/15 text-moura-500">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </span>
+            <span class="contact-body">
+              <span class="contact-label">Teléfonos</span>
+              <span class="flex flex-wrap gap-x-3 gap-y-0.5">
+                <a href="tel:+541158410072" class="contact-value hover:text-energy">11-5841-0072</a>
+                <span class="text-slate-600">·</span>
+                <a href="tel:+541177227324" class="contact-value hover:text-energy">11-7722-7324</a>
+              </span>
+            </span>
+          </div>
+
+          <!-- Dirección -->
+          <a href="https://www.google.com/maps?q=Islas+Malvinas+2605,+San+Andrés,+Buenos+Aires" target="_blank" rel="noopener" class="contact-card group">
+            <span class="contact-icon bg-energy/15 text-energy">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            <span class="contact-body">
+              <span class="contact-label">Dirección</span>
+              <span class="contact-value">Islas Malvinas 2605, San Andrés, Bs. As. →</span>
+            </span>
+          </a>
+
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/bateriasmourasanandres/" target="_blank" rel="noopener" class="contact-card group">
+            <span class="contact-icon bg-[#E1306C]/15 text-[#ED5A95]">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </span>
+            <span class="contact-body">
+              <span class="contact-label">Instagram</span>
+              <span class="contact-value">@bateriasmourasanandres →</span>
+            </span>
+          </a>
+        </div>
+
+        <!-- Mapa embebido -->
+        <div class="map-frame" data-reveal data-reveal-delay="120">
+          <iframe
+            title="Mapa de Baterías Moura San Andrés — Islas Malvinas 2605"
+            src="https://maps.google.com/maps?q=Islas%20Malvinas%202605%2C%20San%20Andr%C3%A9s%2C%20Buenos%20Aires&hl=es&z=16&output=embed"
+            width="100%" height="100%" style="border:0;" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ============================================================= -->
+  <!-- FOOTER                                                        -->
+  <!-- ============================================================= -->
+  <footer class="bg-carbon-800 text-slate-400 border-t border-white/10">
+    <div class="mx-auto max-w-content px-5 lg:px-8 py-12">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+        <div>
+          <div class="flex items-center">
+            <img src="assets/img/logo-dark.webp" width="193" height="36" alt="Baterías Moura San Andrés" class="h-9 w-auto" />
+          </div>
+          <p class="mt-3 text-sm max-w-sm">Cambio de baterías a domicilio con entrega e instalación sin cargo. 20 años de experiencia en el rubro.</p>
+        </div>
+        <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm" aria-label="Navegación del pie">
+          <a href="#nosotros" class="hover:text-white transition-colors">Nosotros</a>
+          <a href="#servicios" class="hover:text-white transition-colors">Servicios</a>
+          <a href="#opiniones" class="hover:text-white transition-colors">Opiniones</a>
+          <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
+        </nav>
+      </div>
+      <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <p>BATERÍAS MOURA SAN ANDRÉS — Copyright <span data-year>2026</span></p>
+        <p>Created By <a href="http://dypconsultora.com/" target="_blank" rel="noopener" class="text-slate-300 hover:text-energy transition-colors font-medium">DyP Consultora</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================= -->
+  <!-- BOTÓN FLOTANTE DE WHATSAPP (fijo abajo a la derecha)          -->
+  <!-- ============================================================= -->
+  <a id="wa-float" href="https://api.whatsapp.com/send?phone=541158410072&text=Hola%2C%20necesito%20ayuda%20con%20la%20compra%20de%20una%20bater%C3%ADa.%20Gracias."
+     target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span class="wa-float-pulse" aria-hidden="true"></span>
+  </a>
+
+  <!-- Scripts (al final para no bloquear el render) -->
+  <script src="js/main.js" defer></script>
+</body>
+</html>

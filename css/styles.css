@@ -467,11 +467,11 @@ html.gsap-on .section-title-light { clip-path: inset(0 100% 0 0); }
 /* Carrusel de logos de marcas (banda clara) */
 .brand-marquee .brand-item { flex: 0 0 auto; padding: 0 2.6rem; display: flex; align-items: center; }
 .brand-item img {
-  height: 62px; width: auto; max-width: 190px; object-fit: contain;
+  height: 124px; width: auto; max-width: 380px; object-fit: contain;
   opacity: .9; transition: transform .3s ease, opacity .3s ease;
 }
-.brand-item img:hover { opacity: 1; transform: scale(1.1); }
-@media (max-width: 640px) { .brand-item { padding: 0 1.8rem; } .brand-item img { height: 46px; } }
+.brand-item img:hover { opacity: 1; transform: scale(1.08); }
+@media (max-width: 640px) { .brand-item { padding: 0 1.8rem; } .brand-item img { height: 90px; } }
 
 /* MAGNÉTICO — GSAP controla el transform; la transición queda solo para el glow */
 [data-magnetic] { transition: box-shadow .25s ease, background-color .2s ease, border-color .2s ease; will-change: transform; }

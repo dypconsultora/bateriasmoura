@@ -143,14 +143,19 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   transform: rotate(1.5deg);
 }
 .hero-badge {
-  position: absolute; left: -22px; bottom: 26px;
-  background: rgba(15,27,51,.92); backdrop-filter: blur(6px);
-  border: 1px solid rgba(250,204,21,.35); border-radius: 18px;
-  padding: 14px 18px; text-align: center;
-  box-shadow: 0 20px 40px -16px rgba(0,0,0,.7);
-  animation: floaty 5s ease-in-out infinite;
+  position: absolute; left: -26px; bottom: 24px; z-index: 2;
+  background: var(--energy); color: var(--carbon);
+  border: 2px solid rgba(255,255,255,.55); border-radius: 18px;
+  padding: 15px 22px; text-align: center;
+  box-shadow: 0 18px 40px -10px rgba(250,204,21,.55);
+  /* floaty (el efecto que ya tenía) + glow pulsante para llamar la atención */
+  animation: floaty 5s ease-in-out infinite, badgeGlow 2.4s ease-in-out infinite;
 }
 @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@keyframes badgeGlow {
+  0%, 100% { box-shadow: 0 16px 36px -12px rgba(250,204,21,.5), 0 0 0 0 rgba(250,204,21,0); }
+  50%      { box-shadow: 0 22px 46px -12px rgba(250,204,21,.78), 0 0 30px 6px rgba(250,204,21,.35); }
+}
 
 /* Indicador de scroll del hero */
 .hero-scroll-cue {

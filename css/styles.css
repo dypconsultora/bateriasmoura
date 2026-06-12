@@ -58,6 +58,11 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   -webkit-backdrop-filter: saturate(140%) blur(10px);
   box-shadow: 0 8px 30px -12px rgba(0,0,0,.6);
 }
+/* "Shrink" suave al scrollear: el nav se achica y el logo escala un poco. */
+#site-header nav { transition: height .35s cubic-bezier(.4,0,.2,1); }
+#site-header.scrolled nav { height: 58px; }
+#site-header img { transition: transform .35s cubic-bezier(.4,0,.2,1); }
+#site-header.scrolled img { transform: scale(0.92); }
 
 .nav-link {
   position: relative; color: rgba(255,255,255,.82); transition: color .2s ease;
@@ -148,7 +153,10 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   border: 2px solid rgba(255,255,255,.55); border-radius: 18px;
   padding: 15px 22px; text-align: center;
   box-shadow: 0 18px 40px -10px rgba(250,204,21,.55);
-  /* floaty (el efecto que ya tenía) + glow pulsante para llamar la atención */
+}
+/* El floaty + glow arrancan cuando GSAP termina la entrada del badge.
+   Con reduced-motion no se agrega .is-live → queda quieto. */
+.hero-badge.is-live {
   animation: floaty 5s ease-in-out infinite, badgeGlow 2.4s ease-in-out infinite;
 }
 @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
@@ -387,22 +395,20 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 #wa-float svg { width: 30px; height: 30px; }
 .wa-float-pulse {
   position: absolute; inset: 0; border-radius: 999px; background: var(--wa);
-  z-index: -1; animation: wa-pulse 2.4s ease-out infinite;
-}
-@keyframes wa-pulse {
-  0% { transform: scale(1); opacity: .55; }
-  100% { transform: scale(1.9); opacity: 0; }
+  z-index: -1; opacity: 0; /* el latido lo controla GSAP (js/animations.js) */
 }
 
 /* =================================================================
-   SCROLL REVEAL (aparición de secciones — IntersectionObserver)
+   REVEALS / GSAP
+   Los reveals los maneja GSAP + ScrollTrigger (js/animations.js).
    ================================================================= */
-[data-reveal] {
-  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
-}
-/* Solo ocultamos si hay JS (clase .js en <html>). Sin JS = todo visible. */
-.js [data-reveal] { opacity: 0; transform: translateY(34px); }
-[data-reveal].revealed { opacity: 1; transform: none; }
+/* Pre-ocultamos solo el hero (above-the-fold) para evitar parpadeo; el
+   resto lo oculta GSAP con immediateRender (off-screen, sin flash). Si
+   GSAP no carga o hay reduced-motion, animations.js quita 'gsap-on'. */
+html.gsap-on [data-hero],
+html.gsap-on .hero-badge { opacity: 0; }
+/* Durante cada reveal, GSAP apaga la transición CSS para no pelear con ella. */
+.anim-prep { transition: none !important; }
 
 /* =================================================================
    PREFERENCIA DE MOVIMIENTO REDUCIDO (accesibilidad)
@@ -411,7 +417,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
-  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  [data-reveal], [data-hero], .hero-badge { opacity: 1 !important; transform: none !important; }
   .parallax-layer, .domicilio-bg, .hero-photo-frame, .about-photo-frame { transform: none !important; }
   .hero-photo { transform: rotate(0); }
 }

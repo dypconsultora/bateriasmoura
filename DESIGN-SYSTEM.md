@@ -62,6 +62,17 @@ Todas optimizadas a **WebP** con `lazy-loading`. Originales guardados en `assets
 - [x] **Contacto siempre visible** (no oculto) — WhatsApp en 6 puntos + botón flotante
 - [x] **Sin errores de JS** en consola (verificado con DevTools)
 
+## ✨ Animaciones (GSAP + ScrollTrigger)
+
+En `js/animations.js` (se carga por CDN al final del body). **Toda la intensidad se ajusta desde el objeto `CFG`** al inicio del archivo: `duration`, `ease`, `fadeY` (y `fadeYMobile`), `stagger`, `countDuration`, `waPulse` (on/off del latido) y `waPulseEvery`.
+
+- **Nav**: efecto "shrink" al scrollear (se achica + escala el logo) — vía CSS sobre la clase `.scrolled`.
+- **Hero**: timeline de entrada (badge pop → título/subtítulo fade-up → foto → CTAs/rating → tarjeta "$0" slide-in lateral). El floaty + glow del badge arrancan al terminar.
+- **Nosotros**: **count-up** de los 3 números (20 / 4.9 / $0) al entrar en viewport.
+- **Servicios / Opiniones / Contacto / Diferenciales**: reveals fade-up en stagger; realce de los números 01/02/03 y del badge 4.9★.
+- **WhatsApp flotante**: latido sutil y espaciado (desactivable con `CFG.waPulse = false`).
+- **Buenas prácticas**: solo `transform`/`opacity` (sin CLS), `ScrollTrigger` con `once:true`, parallax desactivado en mobile, y **`prefers-reduced-motion`** respetado (todo en estado final, sin movimiento ni latido). Si GSAP no carga, el contenido se ve igual (degradación segura).
+
 ## ⚙️ Efectos implementados
 
 - **Parallax en capas**: hero (glow + grilla + rayo a 3 velocidades) y banda "A domicilio" (foto de fondo). JS liviano con `requestAnimationFrame` + `translate3d` (GPU).

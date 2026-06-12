@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Marca que hay JS activo. El scroll-reveal solo oculta contenido si esta
-       clase existe; así, sin JS, todo el contenido se ve igual (SEO + robustez). -->
-  <script>document.documentElement.classList.add('js');</script>
+  <!-- Clases para CSS condicional. 'gsap-on' pre-oculta solo el hero para que
+       GSAP lo anime sin parpadeo; si GSAP no carga o hay reduced-motion,
+       js/animations.js la quita y todo se ve normal (SEO + robustez). -->
+  <script>document.documentElement.classList.add('js', 'gsap-on');</script>
 
   <!-- ===================== SEO ON-PAGE ===================== -->
   <title>Baterías Moura San Andrés | Cambio de batería a domicilio SIN CARGO</title>
@@ -178,21 +179,21 @@
     <div class="relative mx-auto max-w-content px-5 lg:px-8 grid lg:grid-cols-12 gap-12 items-center w-full">
       <!-- Columna de texto -->
       <div class="lg:col-span-7" data-reveal>
-        <p class="inline-flex items-center gap-2 rounded-full border border-energy/30 bg-energy/10 px-4 py-1.5 text-xs font-semibold tracking-widest uppercase text-energy">
+        <p data-hero="badge" class="inline-flex items-center gap-2 rounded-full border border-energy/30 bg-energy/10 px-4 py-1.5 text-xs font-semibold tracking-widest uppercase text-energy">
           <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 20 años de experiencia
         </p>
-        <h1 class="mt-6 font-display font-extrabold leading-[1.05] text-4xl sm:text-5xl lg:text-6xl">
+        <h1 data-hero="title" class="mt-6 font-display font-extrabold leading-[1.05] text-4xl sm:text-5xl lg:text-6xl">
           Cambiamos la batería<br class="hidden sm:block" /> de tu auto
           <span class="text-moura-500">a domicilio</span>.<br />
           <span class="text-energy">Entrega e instalación SIN CARGO.</span>
         </h1>
-        <p class="mt-6 max-w-xl text-base sm:text-lg text-slate-300 leading-relaxed">
+        <p data-hero="subtitle" class="mt-6 max-w-xl text-base sm:text-lg text-slate-300 leading-relaxed">
           Honestidad, buen servicio y rapidez de entrega, sumado a buenos precios.
           Vamos donde estés y te dejamos el auto andando.
         </p>
 
         <!-- CTAs principales -->
-        <div class="mt-9 flex flex-col sm:flex-row gap-4">
+        <div data-hero="cta" class="mt-9 flex flex-col sm:flex-row gap-4">
           <a href="https://api.whatsapp.com/send?phone=541158410072&text=Hola%2C%20necesito%20ayuda%20con%20la%20compra%20de%20una%20bater%C3%ADa.%20Gracias."
              target="_blank" rel="noopener"
              class="group inline-flex items-center justify-center gap-2.5 rounded-full bg-wa px-7 py-4 text-base font-bold text-wa-900 shadow-xl shadow-wa/25 btn-wa">
@@ -206,7 +207,7 @@
         </div>
 
         <!-- Mini prueba social bajo los CTAs -->
-        <div class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-slate-400">
+        <div data-hero="rating" class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-slate-400">
           <a href="https://www.google.com/search?q=BATERIAS+MOURA+SAN+ANDRES" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-white transition-colors">
             <span class="text-energy" aria-hidden="true">★★★★★</span>
             <span><strong class="text-white">4.9</strong> en Google</span>
@@ -217,7 +218,7 @@
       </div>
 
       <!-- Columna de imagen (foto del técnico con float + parallax) -->
-      <div class="lg:col-span-5 hidden lg:block" data-reveal data-reveal-delay="150">
+      <div data-hero="photo" class="lg:col-span-5 hidden lg:block">
         <div class="hero-photo-frame" data-parallax="-0.12">
           <div class="hero-photo" role="img"
                aria-label="Técnico de Baterías Moura San Andrés listo para la instalación a domicilio"></div>
@@ -304,15 +305,15 @@
         <!-- Estadísticas -->
         <div class="mt-9 grid grid-cols-3 gap-4">
           <div class="stat-card" data-reveal>
-            <div class="stat-num">20</div>
+            <div class="stat-num"><span class="stat-count" data-to="20" data-dec="0">20</span></div>
             <div class="stat-label">Años de experiencia</div>
           </div>
           <div class="stat-card" data-reveal data-reveal-delay="80">
-            <div class="stat-num">4.9<span class="text-energy">★</span></div>
+            <div class="stat-num"><span class="stat-count" data-to="4.9" data-dec="1">4.9</span><span class="text-energy">★</span></div>
             <div class="stat-label">Opiniones de Google</div>
           </div>
           <div class="stat-card" data-reveal data-reveal-delay="160">
-            <div class="stat-num">$0</div>
+            <div class="stat-num">$<span class="stat-count" data-to="0" data-dec="0">0</span></div>
             <div class="stat-label">Entrega e instalación</div>
           </div>
         </div>
@@ -697,5 +698,9 @@
 
   <!-- Scripts (al final para no bloquear el render) -->
   <script src="js/main.js" defer></script>
+  <!-- GSAP + ScrollTrigger (CDN) y las animaciones de la landing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/animations.js" defer></script>
 </body>
 </html>

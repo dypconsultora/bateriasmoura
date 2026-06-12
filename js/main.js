@@ -81,28 +81,22 @@
     }
   }
 
-  /* ---------------------------------------------------------------
-     4) SCROLL REVEAL (fade + slide al entrar en viewport)
-     --------------------------------------------------------------- */
-  const revealEls = document.querySelectorAll("[data-reveal]");
-  if (prefersReducedMotion) {
-    // Sin animación: mostrar todo directamente
-    revealEls.forEach(function (el) { el.classList.add("revealed"); });
-  } else if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          const delay = entry.target.getAttribute("data-reveal-delay") || 0;
-          entry.target.style.transitionDelay = delay + "ms";
-          entry.target.classList.add("revealed");
-          io.unobserve(entry.target); // una sola vez
-        }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    revealEls.forEach(function (el) { io.observe(el); });
-  } else {
-    revealEls.forEach(function (el) { el.classList.add("revealed"); });
+  // Parallax solo en desktop y si no se pidió menos movimiento.
+  function parallaxOn() {
+    return !prefersReducedMotion && parallaxEls.length && window.innerWidth >= 768;
   }
+  // Limpia los transforms (al pasar a mobile, para que nada quede desplazado).
+  function clearParallax() {
+    for (var i = 0; i < parallaxEls.length; i++) parallaxEls[i].style.transform = "";
+  }
+
+  /* ---------------------------------------------------------------
+     4) SCROLL REVEAL
+     Los reveals ahora los maneja GSAP + ScrollTrigger (js/animations.js):
+     hero timeline, stagger, count-up, etc. Acá no hacemos nada para no
+     duplicar. Si GSAP no carga o hay reduced-motion, el contenido se ve
+     en su estado final (lo resuelve styles.css quitando la clase gsap-on).
+     --------------------------------------------------------------- */
 
   /* ---------------------------------------------------------------
      5) BOTÓN FLOTANTE DE WHATSAPP — aparece tras bajar un poco
@@ -119,12 +113,13 @@
   function onScroll() {
     updateHeader();
     updateWaFloat();
-    if (!prefersReducedMotion && parallaxEls.length) requestParallax();
+    if (parallaxOn()) requestParallax();
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", function () {
-    if (!prefersReducedMotion) requestParallax();
+    if (parallaxOn()) requestParallax();
+    else clearParallax();
   }, { passive: true });
 
   /* ---------------------------------------------------------------
@@ -132,7 +127,7 @@
      --------------------------------------------------------------- */
   updateHeader();
   updateWaFloat();
-  if (!prefersReducedMotion && parallaxEls.length) applyParallax();
+  if (parallaxOn()) applyParallax();
 
   // Año dinámico del footer
   document.querySelectorAll("[data-year]").forEach(function (el) {

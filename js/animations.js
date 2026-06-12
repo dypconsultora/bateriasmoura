@@ -180,18 +180,21 @@
   /* ---------------------------------------------------------------
      6) DIFERENCIALES — marquee infinito
      --------------------------------------------------------------- */
-  (function initMarquee() {
-    var track = document.getElementById("diff-marquee");
+  function makeMarquee(id, seconds, reverse) {
+    var track = document.getElementById(id);
     if (!track) return;
     // Clonamos el set para un loop sin cortes.
     Array.prototype.slice.call(track.children).forEach(function (it) {
       var c = it.cloneNode(true); c.setAttribute("aria-hidden", "true"); track.appendChild(c);
     });
-    var loop = gsap.to(track, { xPercent: -50, duration: CFG.marqueeSeconds, ease: "none", repeat: -1 });
+    gsap.set(track, { xPercent: reverse ? -50 : 0 });
+    var loop = gsap.to(track, { xPercent: reverse ? 0 : -50, duration: seconds, ease: "none", repeat: -1 });
     var box = track.parentNode;
     box.addEventListener("mouseenter", function () { gsap.to(loop, { timeScale: 0.25, duration: 0.4 }); });
     box.addEventListener("mouseleave", function () { gsap.to(loop, { timeScale: 1, duration: 0.4 }); });
-  })();
+  }
+  makeMarquee("diff-marquee", CFG.marqueeSeconds, false);
+  makeMarquee("brand-marquee", CFG.marqueeSeconds * 1.35, true); // marcas: más lento y en sentido opuesto
 
   /* ---------------------------------------------------------------
      7) NOSOTROS — reveal de columnas + count-up con blur
@@ -220,6 +223,11 @@
       });
     }
   });
+
+  /* ---------------------------------------------------------------
+     MARCAS — reveal del encabezado (el carrusel se mueve solo)
+     --------------------------------------------------------------- */
+  reveal("#marcas .text-center", { trigger: "#marcas", start: "top 85%" });
 
   /* ---------------------------------------------------------------
      8) SERVICIOS — cards con rotación/skew + números grandes

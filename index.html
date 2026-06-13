@@ -10,13 +10,16 @@
   <script>document.documentElement.classList.add('js', 'gsap-on');</script>
 
   <!-- ===================== SEO ON-PAGE ===================== -->
-  <title>Baterías Moura San Andrés | Cambio de batería a domicilio SIN CARGO</title>
-  <meta name="description" content="Cambiamos la batería de tu auto a domicilio. Entrega e instalación sin cargo en San Andrés y zona. 20 años de experiencia · 4.9★ en Google · Atención por WhatsApp." />
+  <title>Baterías Moura San Andrés | Batería a domicilio sin cargo</title>
+  <meta name="description" content="Cambio de batería a domicilio en San Andrés y Gran Buenos Aires. Entrega e instalación sin cargo · 20 años de experiencia · 4.9★ en Google. Pedí por WhatsApp." />
   <meta name="keywords" content="baterías Moura, batería a domicilio, cambio de batería San Andrés, baterías para auto, instalación sin cargo, Moura San Andrés" />
   <meta name="author" content="Baterías Moura San Andrés" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0B1220" />
   <link rel="canonical" href="https://bateriasmourasanandres.com.ar/" />
+
+  <!-- Preload de la imagen del hero (mejora LCP en desktop, donde se muestra) -->
+  <link rel="preload" as="image" href="assets/img/hero-mecanico.webp" fetchpriority="high" media="(min-width: 1024px)" />
 
   <!-- Open Graph / redes sociales -->
   <meta property="og:type" content="website" />
@@ -75,9 +78,14 @@
   {
     "@context": "https://schema.org",
     "@type": "AutoPartsStore",
+    "@id": "https://bateriasmourasanandres.com.ar/#business",
     "name": "Baterías Moura San Andrés",
-    "description": "Venta, entrega e instalación de baterías para autos a domicilio sin cargo. 20 años de experiencia.",
-    "image": "https://bateriasmourasanandres.com.ar/assets/img/logo.png",
+    "description": "Venta, entrega e instalación de baterías para autos a domicilio sin cargo en San Andrés y Gran Buenos Aires. 20 años de experiencia.",
+    "image": [
+      "https://bateriasmourasanandres.com.ar/assets/img/local.webp",
+      "https://bateriasmourasanandres.com.ar/assets/img/hero-mecanico.webp"
+    ],
+    "logo": "https://bateriasmourasanandres.com.ar/assets/img/logo.png",
     "url": "https://bateriasmourasanandres.com.ar/",
     "telephone": "+541158410072",
     "priceRange": "$$",
@@ -86,20 +94,61 @@
       "streetAddress": "Islas Malvinas 2605",
       "addressLocality": "San Andrés",
       "addressRegion": "Buenos Aires",
+      "postalCode": "B1651",
       "addressCountry": "AR"
     },
+    "hasMap": "https://maps.google.com/maps?q=Islas%20Malvinas%202605%2C%20San%20Andr%C3%A9s%2C%20Buenos%20Aires",
     "areaServed": "San Andrés y Gran Buenos Aires",
-    "openingHoursSpecification": [{
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
-    }],
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
       "bestRating": "5",
       "ratingCount": "100"
     },
-    "sameAs": ["https://www.google.com/search?q=BATERIAS+MOURA+SAN+ANDRES"]
+    "sameAs": [
+      "https://www.instagram.com/bateriasmourasanandres/",
+      "https://www.google.com/search?q=BATERIAS+MOURA+SAN+ANDRES"
+    ]
+  }
+  </script>
+
+  <!-- ===================== FAQ (FAQPage) ===================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿La entrega y la instalación tienen costo?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. La entrega y la instalación de la batería son sin cargo en San Andrés y zona. Solo pagás la batería: coordinás por WhatsApp, vamos a tu domicilio y te dejamos el auto andando." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Hacen el cambio de batería a domicilio?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sí. Nuestro equipo va donde estés —tu casa, el trabajo o donde quedaste varado— y hace el cambio en el momento. También podés acercarte a nuestro local a la calle en Islas Malvinas 2605, San Andrés." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿El cambio de batería borra la configuración del auto?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Hacemos el cambio manteniendo la línea siempre alimentada, así no se desprograman el estéreo, la computadora de abordo ni los sistemas satelitales. Lo realiza personal idóneo y capacitado." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo sé qué batería necesito?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Te asesoramos sin compromiso. Con 20 años de experiencia, te ayudamos a elegir la batería correcta para tu auto según el modelo y el uso, para que dure y no te falle." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué zonas cubren?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Trabajamos en San Andrés y todo el Gran Buenos Aires. Si no estás seguro de si llegamos a tu zona, escribinos por WhatsApp y te confirmamos al toque." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo coordino el cambio?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Escribinos por WhatsApp al 11-5841-0072 (o llamanos). Coordinamos el horario, vamos a tu domicilio y resolvemos todo en el día." }
+      }
+    ]
   }
   </script>
 </head>
@@ -607,6 +656,44 @@
   </section>
 
   <!-- ============================================================= -->
+  <!-- PREGUNTAS FRECUENTES (FAQ) — extractable por IA + FAQPage     -->
+  <!-- ============================================================= -->
+  <section id="faq" class="py-20 lg:py-28 bg-surface">
+    <div class="mx-auto max-w-3xl px-5 lg:px-8">
+      <div class="text-center" data-reveal>
+        <p class="section-eyebrow justify-center">Preguntas frecuentes</p>
+        <h2 class="section-title mt-3">Todo lo que necesitás saber</h2>
+      </div>
+      <div class="mt-10 space-y-3">
+        <details class="faq-item">
+          <summary>¿La entrega y la instalación tienen costo?</summary>
+          <div class="faq-a">No. La entrega y la instalación de la batería son <strong>sin cargo</strong> en San Andrés y zona. Solo pagás la batería: coordinás por WhatsApp, vamos a tu domicilio y te dejamos el auto andando.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Hacen el cambio de batería a domicilio?</summary>
+          <div class="faq-a">Sí. Nuestro equipo va donde estés —tu casa, el trabajo o donde quedaste varado— y hace el cambio en el momento. También podés acercarte a nuestro local a la calle en Islas Malvinas 2605, San Andrés.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿El cambio de batería borra la configuración del auto?</summary>
+          <div class="faq-a">No. Hacemos el cambio manteniendo la línea siempre alimentada, así no se desprograman el estéreo, la computadora de abordo ni los sistemas satelitales. Lo realiza personal idóneo y capacitado.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cómo sé qué batería necesito?</summary>
+          <div class="faq-a">Te asesoramos sin compromiso. Con 20 años de experiencia, te ayudamos a elegir la batería correcta para tu auto según el modelo y el uso, para que dure y no te falle.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué zonas cubren?</summary>
+          <div class="faq-a">Trabajamos en San Andrés y todo el Gran Buenos Aires. Si no estás seguro de si llegamos a tu zona, escribinos por WhatsApp y te confirmamos al toque.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cómo coordino el cambio?</summary>
+          <div class="faq-a">Escribinos por WhatsApp al 11-5841-0072 (o llamanos). Coordinamos el horario, vamos a tu domicilio y resolvemos todo en el día.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
   <!-- CONTACTO + MAPA                                               -->
   <!-- ============================================================= -->
   <section id="contacto" class="py-20 lg:py-28 bg-carbon-900 text-white overflow-hidden">
@@ -724,10 +811,10 @@
   <!-- Scripts (al final para no bloquear el render) -->
   <script src="js/main.js" defer></script>
   <!-- GSAP 3.13 + plugins (CDN) y las animaciones de la landing -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollSmoother.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer crossorigin="anonymous" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer crossorigin="anonymous" integrity="sha384-P8VzCVnT9NBUkMrpcIZrJbA7EBjJvh/fJS6PmP+4nLIM284DtsImIv8D0fFjIkeh"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollSmoother.min.js" defer crossorigin="anonymous" integrity="sha384-dd8lT3AimXbI347qlZzlijPa4qnSlgGxuTqK2HlcfvF5+aOIeddPdMFmFpypQPZN"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer crossorigin="anonymous" integrity="sha384-xb96EMJeax+NLXMC88ZBa1xAeAW+kn+horHh/zFlbMLG2UPWhMJJSlv7fi57hS+Q"></script>
   <script src="js/animations.js" defer></script>
 </body>
 </html>

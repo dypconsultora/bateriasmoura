@@ -300,6 +300,11 @@
   reveal("#opiniones .text-center", { trigger: "#opiniones .text-center", start: "top 90%" });
 
   /* ---------------------------------------------------------------
+     FAQ — reveal en cascada
+     --------------------------------------------------------------- */
+  reveal("#faq .faq-item", { trigger: "#faq", start: "top 80%", stagger: 0.08, y: DIST * 0.6 });
+
+  /* ---------------------------------------------------------------
      11) CONTACTO
      --------------------------------------------------------------- */
   reveal("#contacto .max-w-2xl", { trigger: "#contacto" });

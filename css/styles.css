@@ -402,6 +402,28 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 
 /* =================================================================
+   FAQ (acordeón nativo <details>, sin JS)
+   ================================================================= */
+.faq-item {
+  background: #fff; border: 1px solid rgba(15,23,42,.08); border-radius: 16px;
+  padding: 0 1.4rem; transition: border-color .25s ease, box-shadow .25s ease;
+}
+.faq-item[open] { border-color: rgba(37,99,235,.3); box-shadow: 0 16px 36px -24px rgba(15,23,42,.3); }
+.faq-item summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 1.25rem 0; font-family: "Outfit", sans-serif; font-weight: 600;
+  font-size: 1.05rem; color: var(--ink);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+"; flex: none; display: grid; place-items: center; width: 28px; height: 28px;
+  border-radius: 999px; background: rgba(37,99,235,.1); color: var(--moura);
+  font-size: 1.3rem; line-height: 1; transition: transform .25s ease, background .25s ease, color .25s ease;
+}
+.faq-item[open] summary::after { content: "−"; background: var(--moura); color: #fff; }
+.faq-a { padding: 0 0 1.3rem; color: #475569; line-height: 1.65; }
+
+/* =================================================================
    REVEALS / GSAP
    Los reveals los maneja GSAP + ScrollTrigger (js/animations.js).
    ================================================================= */

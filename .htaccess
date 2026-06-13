@@ -8,6 +8,18 @@ RewriteEngine On
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# ---------- Desactivar el cache de página de LiteSpeed ----------
+# El WordPress viejo dejó una home cacheada en el servidor. Esto evita
+# que se siga sirviendo ese snapshot y fuerza a servir nuestro index.html.
+<IfModule LiteSpeed>
+  CacheDisable public /
+  RewriteRule .* - [E=Cache-Control:no-cache]
+  RewriteRule .* - [E=cache-control:no-cache]
+</IfModule>
+
+# index.html como índice por defecto (antes que cualquier index.php).
+DirectoryIndex index.html index.htm index.php
+
 # ---------- Bloquear .git, ocultos y archivos de desarrollo ----------
 # (evita que se pueda descargar el código fuente / historial del repo)
 RedirectMatch 404 /\.git
@@ -27,6 +39,10 @@ Options -Indexes
   Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
   # HSTS: activar SOLO cuando el SSL ya esté funcionando en el dominio.
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  # El HTML no se cachea (que siempre traiga la última versión).
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate, max-age=0"
+  </FilesMatch>
 </IfModule>
 
 # ---------- Compresión (gzip) ----------

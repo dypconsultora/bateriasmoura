@@ -67,7 +67,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .nav-link {
   position: relative; color: rgba(255,255,255,.82); transition: color .2s ease;
   font-family: "Space Grotesk", ui-sans-serif, sans-serif;
-  text-transform: uppercase; letter-spacing: .09em;
+  text-transform: uppercase; letter-spacing: .09em; white-space: nowrap;
   font-size: .95rem; font-weight: 500;
 }
 .nav-link:hover { color: #fff; }

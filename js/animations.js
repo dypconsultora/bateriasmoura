@@ -300,9 +300,22 @@
   reveal("#opiniones .text-center", { trigger: "#opiniones .text-center", start: "top 90%" });
 
   /* ---------------------------------------------------------------
-     FAQ — reveal en cascada
+     FAQ — cada pregunta entra desde un costado alternado
+     (1ª desde la izquierda, 2ª derecha, 3ª izquierda...) al aparecer
+     en pantalla. Funciona en desktop y mobile (con menos distancia).
      --------------------------------------------------------------- */
-  reveal("#faq .faq-item", { trigger: "#faq", start: "top 80%", stagger: 0.08, y: DIST * 0.6 });
+  gsap.utils.toArray("#faq .faq-item").forEach(function (item, i) {
+    item.classList.add("anim-prep");
+    gsap.from(item, {
+      autoAlpha: 0,
+      x: (i % 2 === 0 ? -1 : 1) * (isMobile ? 45 : 90),
+      duration: CFG.duration,
+      ease: CFG.ease,
+      clearProps: "transform,opacity,visibility",
+      scrollTrigger: { trigger: item, start: "top 88%", once: true },
+      onComplete: function () { item.classList.remove("anim-prep"); }
+    });
+  });
 
   /* ---------------------------------------------------------------
      11) CONTACTO

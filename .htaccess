@@ -20,6 +20,13 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # index.html como índice por defecto (antes que cualquier index.php).
 DirectoryIndex index.html index.htm index.php
 
+# ---------- Redirigir cualquier URL inexistente a la home ----------
+# Si la ruta NO es un archivo ni una carpeta real, manda a la principal (/).
+# (Los archivos reales —css, js, imágenes— no se tocan.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ / [R=301,L]
+
 # ---------- Bloquear .git, ocultos y archivos de desarrollo ----------
 # (evita que se pueda descargar el código fuente / historial del repo)
 RedirectMatch 404 /\.git

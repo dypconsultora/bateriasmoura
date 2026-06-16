@@ -280,6 +280,13 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 .service-icon svg { width: 30px; height: 30px; }
 .service-card:hover .service-icon { background: var(--energy); color: var(--carbon); transform: scale(1.06) rotate(-4deg); }
+
+/* Estado "seleccionado" (mobile): mismo look que el hover de escritorio, pero lo
+   activa animations.js —el card que queda centrado al scrollear, o el que tocás—. */
+.service-card.is-active { transform: translateY(-6px); border-color: rgba(250,204,21,.45); box-shadow: 0 30px 60px -30px rgba(0,0,0,.7); }
+.service-card.is-active::before { transform: scaleX(1); }
+.service-card.is-active .service-step { color: rgba(255,255,255,.9); transform: scale(2); }
+.service-card.is-active .service-icon { background: var(--energy); color: var(--carbon); transform: scale(1.06) rotate(-4deg); }
 .service-title { margin-top: 1.3rem; font-family: "Outfit", sans-serif; font-weight: 700; font-size: 1.4rem; color: #fff; }
 .service-text { margin-top: .7rem; color: #aeb9cc; line-height: 1.65; font-size: .98rem; }
 

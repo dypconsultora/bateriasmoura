@@ -236,23 +236,55 @@
 
   gsap.utils.toArray("#servicios .service-card").forEach(function (card, i) {
     card.classList.add("anim-prep");
-    gsap.from(card, {
-      autoAlpha: 0, y: DIST, rotateZ: i % 2 ? 2.5 : -2.5, skewY: 2, transformPerspective: 800,
-      duration: CFG.duration, delay: i * CFG.stagger, clearProps: "transform,opacity,visibility",
-      scrollTrigger: { trigger: "#servicios", start: CFG.start, once: true },
-      onComplete: function () { card.classList.remove("anim-prep"); }
-    });
+    // Entrada: en mobile cada card entra desde un costado alternado (1ª izq, 2ª
+    // der, 3ª izq) al aparecer; en desktop, el rotate/skew de siempre.
+    var fromVars = isMobile
+      ? { autoAlpha: 0, x: (i % 2 === 0 ? -1 : 1) * 45 }
+      : { autoAlpha: 0, y: DIST, rotateZ: i % 2 ? 2.5 : -2.5, skewY: 2, transformPerspective: 800 };
+    fromVars.duration = CFG.duration;
+    fromVars.ease = CFG.ease;
+    fromVars.delay = isMobile ? 0 : i * CFG.stagger;
+    fromVars.clearProps = "transform,opacity,visibility";
+    fromVars.scrollTrigger = { trigger: isMobile ? card : "#servicios", start: CFG.start, once: true };
+    fromVars.onComplete = function () { card.classList.remove("anim-prep"); };
+    gsap.from(card, fromVars);
+
     var step = card.querySelector(".service-step");
     if (step) {
       gsap.from(step, {
-        autoAlpha: 0, scale: 0.3, duration: 0.9, delay: i * CFG.stagger + 0.15, ease: "back.out(2)",
+        autoAlpha: 0, scale: 0.3, duration: 0.9, delay: (isMobile ? 0 : i * CFG.stagger) + 0.15, ease: "back.out(2)",
         clearProps: "transform", transformOrigin: "top right",
-        scrollTrigger: { trigger: "#servicios", start: CFG.start, once: true },
+        scrollTrigger: { trigger: isMobile ? card : "#servicios", start: CFG.start, once: true },
         onStart: function () { step.style.transition = "none"; },
         onComplete: function () { step.style.transition = ""; }
       });
     }
   });
+
+  /* En mobile, el efecto "seleccionado" (el del hover) se mueve solo a medida que
+     scrolleás: se marca el card que queda centrado en pantalla. Y si tocás uno,
+     pasa a ese. En desktop esto lo maneja el hover. */
+  if (isMobile) {
+    var svcCards = gsap.utils.toArray("#servicios .service-card");
+    var setActiveSvc = function (idx) {
+      svcCards.forEach(function (c, j) { c.classList.toggle("is-active", j === idx); });
+    };
+    var spySvc = function () {
+      var mid = window.innerHeight / 2, best = -1, bestD = Infinity;
+      svcCards.forEach(function (c, j) {
+        var r = c.getBoundingClientRect();
+        if (r.bottom <= 0 || r.top >= window.innerHeight) return; // fuera de pantalla
+        var d = Math.abs(r.top + r.height / 2 - mid);
+        if (d < bestD) { bestD = d; best = j; }
+      });
+      if (best >= 0) setActiveSvc(best);
+    };
+    ScrollTrigger.create({ trigger: "#servicios", start: "top bottom", end: "bottom top", onUpdate: spySvc });
+    svcCards.forEach(function (c, j) {
+      c.addEventListener("click", function () { setActiveSvc(j); });
+    });
+    spySvc();
+  }
 
   /* ---------------------------------------------------------------
      9) BANDA "A DOMICILIO"

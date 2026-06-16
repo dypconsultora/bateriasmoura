@@ -287,9 +287,40 @@
   }
 
   /* ---------------------------------------------------------------
-     9) BANDA "A DOMICILIO"
+     9) BANDA "A DOMICILIO" — entrada en cascada + PIN "cover": se fija
+        bajo el header y la sección de abajo (Opiniones, opaca) la tapa
+        al scrollear, mientras queda fija.
      --------------------------------------------------------------- */
-  reveal(".domicilio-band [data-reveal]", { trigger: ".domicilio-band", start: "top 75%" });
+  var domBand = document.querySelector(".domicilio-band");
+  if (domBand) {
+    // Entrada: eyebrow → título → texto → botón suben en cascada.
+    var domKids = gsap.utils.toArray(domBand.querySelectorAll("[data-reveal] > *"));
+    gsap.from(domKids, {
+      autoAlpha: 0, y: 46, duration: 0.95, ease: "power3.out", stagger: 0.13,
+      clearProps: "transform,opacity,visibility",
+      scrollTrigger: { trigger: domBand, start: "top 78%", once: true }
+    });
+    // Zoom-out suave del fondo al aparecer.
+    var domBg = domBand.querySelector(".domicilio-bg");
+    if (domBg) {
+      gsap.from(domBg, {
+        scale: 1.16, duration: 1.7, ease: "power2.out",
+        scrollTrigger: { trigger: domBand, start: "top 88%", once: true }
+      });
+    }
+    // PIN: el banner se fija a 58px del borde (justo bajo el header) y se
+    // mantiene fijo mientras Opiniones sube y lo tapa. pinSpacing:false =
+    // no reserva espacio, así la sección de abajo lo cubre.
+    ScrollTrigger.create({
+      trigger: domBand,
+      start: "top 58",
+      end: function () { return "+=" + domBand.offsetHeight; },
+      pin: true,
+      pinSpacing: false,
+      anticipatePin: 1,
+      invalidateOnRefresh: true
+    });
+  }
 
   /* ---------------------------------------------------------------
      10) OPINIONES — reveal 3D + badge + tilt al hover

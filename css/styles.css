@@ -293,7 +293,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 /* =================================================================
    BANDA "A DOMICILIO" (parallax con foto de fondo)
    ================================================================= */
-.domicilio-band { position: relative; overflow: hidden; background: var(--carbon); }
+/* z-index bajo: cuando el banner se fija (pin), Opiniones —que va abajo y es
+   opaco (bg-surface)— lo tapa al scrollear. */
+.domicilio-band { position: relative; overflow: hidden; background: var(--carbon); z-index: 1; }
 .domicilio-bg {
   position: absolute; inset: -15% 0; /* extra alto para el movimiento parallax */
   background-image: url("../assets/img/domicilio.webp");
@@ -304,6 +306,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(11,18,32,.82) 0%, rgba(11,18,32,.72) 50%, rgba(11,18,32,.9) 100%);
 }
+/* Opiniones por encima del banner fijado, para que lo tape al subir. */
+#opiniones { position: relative; z-index: 2; }
 
 /* =================================================================
    OPINIONES (carrusel)

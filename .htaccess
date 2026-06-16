@@ -60,12 +60,25 @@ Options -Indexes
 </IfModule>
 
 # ---------- Caché de estáticos ----------
+# CSS/JS llevan ?v=fecha (cache-busting), e imágenes nombre estable, así que
+# es seguro cachearlos 1 año (Lighthouse "efficient cache policy").
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType image/webp  "access plus 1 month"
-  ExpiresByType image/png   "access plus 1 month"
-  ExpiresByType image/jpeg  "access plus 1 month"
-  ExpiresByType image/x-icon "access plus 1 month"
-  ExpiresByType text/css    "access plus 1 week"
-  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/webp  "access plus 1 year"
+  ExpiresByType image/png   "access plus 1 year"
+  ExpiresByType image/jpeg  "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css    "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+</IfModule>
+<IfModule mod_headers.c>
+  # Refuerza el cache de 1 año + immutable para estáticos versionados.
+  <FilesMatch "\.(webp|png|jpe?g|gif|ico|svg|css|js|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # El HTML SIEMPRE fresco (vuelve a pisar la regla de arriba para .html).
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate, max-age=0"
+  </FilesMatch>
 </IfModule>

@@ -350,10 +350,14 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 .rev-arrow:hover { background: var(--moura); color: #fff; border-color: var(--moura); transform: translateY(-2px); box-shadow: 0 12px 24px -12px rgba(37,99,235,.5); }
 .rev-arrow:active { transform: translateY(0) scale(.96); }
-.reviews-dots { display: flex; align-items: center; gap: 8px; }
-.rev-dot { width: 9px; height: 9px; border-radius: 50%; background: #cbd5e1; border: none; cursor: pointer; padding: 0; transition: background .25s ease, width .25s ease; }
-.rev-dot:hover { background: #94a3b8; }
-.rev-dot.active { background: var(--moura); width: 26px; border-radius: 5px; }
+.reviews-dots { display: flex; align-items: center; gap: 2px; }
+/* El botón mide 24x24px (área táctil accesible — WCAG 2.5.8 / Lighthouse
+   target-size); el punto visible (9px, o pastilla cuando está activo) se
+   dibuja con ::before, así el diseño no cambia pero sí crece el área de toque. */
+.rev-dot { width: 24px; height: 24px; padding: 0; border: none; background: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
+.rev-dot::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #cbd5e1; transition: background .25s ease, width .25s ease; }
+.rev-dot:hover::before { background: #94a3b8; }
+.rev-dot.active::before { background: var(--moura); width: 22px; border-radius: 5px; }
 
 /* =================================================================
    CONTACTO

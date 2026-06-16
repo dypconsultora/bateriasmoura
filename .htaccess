@@ -31,6 +31,8 @@ RewriteRule ^ / [R=301,L]
 # (evita que se pueda descargar el código fuente / historial del repo)
 RedirectMatch 404 /\.git
 RedirectMatch 404 ^/assets/raw/
+RedirectMatch 404 ^/src/
+RedirectMatch 404 /tailwind\.config\.js$
 <FilesMatch "(^\.ht|^\.git|\.(md|markdown|json|gitignore|yml|yaml|lock|sh|bash|log|bak|old|sql|ini|conf|env)$)">
   Require all denied
 </FilesMatch>

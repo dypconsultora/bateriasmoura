@@ -42,36 +42,18 @@
   <!-- ===================== TIPOGRAFÍAS (Outfit + Work Sans) ===================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Fuentes sin bloquear el render (preload + aplicar al cargar) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" /></noscript>
 
-  <!-- ===================== TAILWIND (Play CDN) + TOKENS DE MARCA ===================== -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // Tokens de marca "Energía Moura" — editá los HEX acá para cambiar toda la paleta.
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            carbon:  { DEFAULT: '#0B1220', 900: '#0B1220', 800: '#0F1B33', 700: '#13234A' },
-            moura:   { DEFAULT: '#2563EB', 700: '#1D4ED8', 600: '#2563EB', 500: '#3B82F6' },
-            energy:  { DEFAULT: '#FACC15', 500: '#EAB308', 400: '#FACC15' },
-            wa:      { DEFAULT: '#25D366', 700: '#128C7E', 900: '#06351B' },
-            surface: '#F8FAFC',
-            ink:     '#0F172A',
-          },
-          fontFamily: {
-            display: ['Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-            body:    ['"Work Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-            nav:     ['"Space Grotesk"', 'ui-sans-serif', 'sans-serif'],
-          },
-          maxWidth: { content: '1200px' },
-        },
-      },
-    };
-  </script>
+  <!-- ===================== TAILWIND (compilado a CSS estático, sin runtime) =====================
+       Tokens de marca en tailwind.config.js. Para recompilar tras cambiar clases:
+       npx tailwindcss@3.4.17 -c tailwind.config.js -i src/tailwind.css -o css/tailwind.css --minify -->
+  <link rel="stylesheet" href="css/tailwind.css?v=20260615" />
 
   <!-- Estilos propios (parallax, animaciones, micro-interacciones) -->
-  <link rel="stylesheet" href="css/styles.css?v=20260613" />
+  <link rel="stylesheet" href="css/styles.css?v=20260615" />
 
   <!-- ===================== DATOS ESTRUCTURADOS (LocalBusiness) ===================== -->
   <script type="application/ld+json">
@@ -201,7 +183,7 @@
     </div>
 
     <!-- Menú mobile desplegable -->
-    <div id="mobile-menu" class="xl:hidden hidden bg-carbon-800/98 backdrop-blur border-t border-white/10">
+    <div id="mobile-menu" class="xl:hidden hidden bg-carbon-800/95 backdrop-blur border-t border-white/10">
       <ul class="mx-auto max-w-content px-5 py-4 flex flex-col gap-1 text-white">
         <li><a href="#nosotros" class="block py-3 px-2 rounded-lg hover:bg-white/5 mobile-link">Nosotros</a></li>
         <li><a href="#servicios" class="block py-3 px-2 rounded-lg hover:bg-white/5 mobile-link">Servicios</a></li>

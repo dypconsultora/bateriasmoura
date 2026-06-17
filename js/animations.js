@@ -227,6 +227,7 @@
   /* ---------------------------------------------------------------
      MARCAS — reveal del encabezado (el carrusel se mueve solo)
      --------------------------------------------------------------- */
+  reveal(".ps-banner", { trigger: ".ps-banner", start: "top 86%" });
   reveal("#marcas .text-center", { trigger: "#marcas", start: "top 85%" });
 
   /* ---------------------------------------------------------------

@@ -288,6 +288,11 @@
   }
 
   /* ---------------------------------------------------------------
+     8.5) COMPATIBILIDADES — las 6 tarjetas entran en cascada.
+     --------------------------------------------------------------- */
+  reveal("#compatibilidades .compat-grid > *", { trigger: "#compatibilidades", start: "top 82%", stagger: 0.08 });
+
+  /* ---------------------------------------------------------------
      9) BANDA "A DOMICILIO" — entrada en cascada + PIN "cover": se fija
         bajo el header y la sección de abajo (Opiniones, opaca) la tapa
         al scrollear, mientras queda fija.

@@ -332,6 +332,52 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 
 /* =================================================================
+   COMPATIBILIDADES · grilla (imágenes B/N que se pintan al hover)
+   ================================================================= */
+.compat-grid { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+@media (min-width: 640px)  { .compat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .compat-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
+
+.compat-intro, .compat-card {
+  border-radius: 22px; padding: 2.1rem 1.9rem; min-height: 340px;
+  display: flex; flex-direction: column;
+}
+/* Tarjeta intro amarilla */
+.compat-intro {
+  position: relative; overflow: hidden; justify-content: center; color: var(--carbon);
+  background: linear-gradient(150deg, #FACC15 0%, #FBBF24 52%, #F59E0B 125%);
+}
+.compat-intro::after {
+  content: ""; position: absolute; right: -30%; top: -30%; width: 80%; height: 80%;
+  background: radial-gradient(circle, rgba(255,255,255,.35), transparent 60%); pointer-events: none;
+}
+.compat-intro-eyebrow { position: relative; font-family: "Work Sans", sans-serif; font-weight: 500; font-size: 1.05rem; }
+.compat-intro-title { position: relative; font-family: "Outfit", sans-serif; font-weight: 800; font-size: clamp(1.7rem, 2.6vw, 2.15rem); line-height: 1.1; margin: .45rem 0; }
+.compat-intro-sub { position: relative; font-family: "Work Sans", sans-serif; font-weight: 500; font-size: 1.05rem; }
+
+/* Tarjetas de categoría */
+.compat-card {
+  background: #fff; border: 1px solid rgba(15,23,42,.08); text-align: center;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.compat-card:hover { transform: translateY(-4px); border-color: rgba(37,99,235,.3); box-shadow: 0 26px 52px -30px rgba(15,23,42,.4); }
+.compat-title { font-family: "Outfit", sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--ink); }
+.compat-text { margin-top: .55rem; color: #64748b; line-height: 1.55; font-size: .98rem; }
+.compat-img-wrap { margin-top: auto; padding-top: 1.2rem; height: 210px; display: flex; align-items: flex-end; justify-content: center; }
+.compat-img {
+  max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;
+  filter: grayscale(1) contrast(1.03); transition: filter .35s ease, transform .35s ease;
+}
+/* "Paint on hover" (escritorio) y al entrar en vista (touch, clase .is-colored) */
+.compat-card:hover .compat-img { filter: grayscale(0); transform: scale(1.06); }
+/* En touch (sin hover) las fotos se pintan al entrar en pantalla (JS agrega .is-colored). */
+@media (hover: none) { .compat-card.is-colored .compat-img { filter: grayscale(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .compat-card, .compat-img { transition: none; }
+  .compat-card:hover { transform: none; }
+}
+
+/* =================================================================
    BANDA "A DOMICILIO" (parallax con foto de fondo)
    ================================================================= */
 /* z-index bajo: cuando el banner se fija (pin), Opiniones —que va abajo y es

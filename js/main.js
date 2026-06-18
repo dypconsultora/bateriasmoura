@@ -189,4 +189,23 @@
     update();
     startAuto();
   })();
+
+  /* ---------------------------------------------------------------
+     5) Compatibilidades: en dispositivos sin hover (touch), pintar las
+        tarjetas a color a medida que entran en pantalla (en escritorio
+        lo hace el :hover).
+     --------------------------------------------------------------- */
+  if ("IntersectionObserver" in window) {
+    var compatCards = document.querySelectorAll("#compatibilidades .compat-card");
+    if (compatCards.length) {
+      var compatIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add("is-colored"); compatIO.unobserve(e.target); }
+        });
+      }, { rootMargin: "0px 0px -12% 0px", threshold: 0.3 });
+      compatCards.forEach(function (c) { compatIO.observe(c); });
+    }
+    // El CSS (@media hover:none) decide si .is-colored pinta: en touch sí (al
+    // entrar en pantalla), en escritorio no —ahí manda el :hover—.
+  }
 })();

@@ -330,6 +330,12 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   .ps-banner-logo img { height: 108px; }
   .ps-sub { font-size: 1rem; }
 }
+/* Escritorio: mismo diseño pero centrado (mobile queda como está). */
+@media (min-width: 701px) {
+  .ps-banner { justify-content: center; }
+  .ps-banner-text { text-align: center; }
+  .ps-eyebrow { justify-content: center; }
+}
 
 /* =================================================================
    COMPATIBILIDADES · grilla (imágenes B/N que se pintan al hover)

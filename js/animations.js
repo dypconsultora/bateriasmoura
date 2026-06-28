@@ -319,7 +319,7 @@
     // no reserva espacio, así la sección de abajo lo cubre.
     ScrollTrigger.create({
       trigger: domBand,
-      start: "top 58",
+      start: isMobile ? "top 70" : "top 58",
       end: function () { return "+=" + domBand.offsetHeight; },
       pin: true,
       pinSpacing: false,

@@ -191,21 +191,28 @@
   })();
 
   /* ---------------------------------------------------------------
-     5) Compatibilidades: en dispositivos sin hover (touch), pintar las
-        tarjetas a color a medida que entran en pantalla (en escritorio
-        lo hace el :hover).
+     5) Compatibilidades: la tarjeta centrada en pantalla pasa a color y el
+        resto queda en B/N (igual que el :hover de escritorio, pero al
+        scrollear). El CSS (@media hover:none) hace que esto SÓLO se vea en
+        touch; en escritorio manda el :hover.
      --------------------------------------------------------------- */
-  if ("IntersectionObserver" in window) {
-    var compatCards = document.querySelectorAll("#compatibilidades .compat-card");
-    if (compatCards.length) {
-      var compatIO = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add("is-colored"); compatIO.unobserve(e.target); }
-        });
-      }, { rootMargin: "0px 0px -12% 0px", threshold: 0.3 });
-      compatCards.forEach(function (c) { compatIO.observe(c); });
-    }
-    // El CSS (@media hover:none) decide si .is-colored pinta: en touch sí (al
-    // entrar en pantalla), en escritorio no —ahí manda el :hover—.
+  var compatCards = Array.prototype.slice.call(document.querySelectorAll("#compatibilidades .compat-card"));
+  if (compatCards.length) {
+    var compatTick = false;
+    var spyCompat = function () {
+      compatTick = false;
+      var mid = window.innerHeight / 2, best = -1, bestD = Infinity;
+      compatCards.forEach(function (c, i) {
+        var r = c.getBoundingClientRect();
+        if (r.bottom <= 0 || r.top >= window.innerHeight) return; // fuera de pantalla
+        var d = Math.abs(r.top + r.height / 2 - mid);
+        if (d < bestD) { bestD = d; best = i; }
+      });
+      compatCards.forEach(function (c, i) { c.classList.toggle("is-colored", i === best); });
+    };
+    window.addEventListener("scroll", function () {
+      if (!compatTick) { compatTick = true; requestAnimationFrame(spyCompat); }
+    }, { passive: true });
+    spyCompat();
   }
 })();

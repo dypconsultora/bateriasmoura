@@ -60,15 +60,15 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 /* "Shrink" suave al scrollear: el nav se achica y el logo escala un poco. */
 #site-header nav { transition: height .35s cubic-bezier(.4,0,.2,1); }
-#site-header.scrolled nav { height: 58px; }
+#site-header.scrolled nav { height: 68px; }
 #site-header img { transition: transform .35s cubic-bezier(.4,0,.2,1); }
 #site-header.scrolled img { transform: scale(0.92); }
 
 /* Logo nuevo (batería real + "Moura San Andrés"): más alto que el anterior
    para que el texto se lea. */
-.site-logo { height: 54px; width: auto; display: block; }
-@media (max-width: 640px) { .site-logo { height: 44px; } }
-.footer-logo { height: 64px; width: auto; display: block; }
+.site-logo { height: 62px; width: auto; display: block; }
+@media (max-width: 640px) { .site-logo { height: 50px; } }
+.footer-logo { height: 72px; width: auto; display: block; }
 
 .nav-link {
   position: relative; color: rgba(255,255,255,.82); transition: color .2s ease;
